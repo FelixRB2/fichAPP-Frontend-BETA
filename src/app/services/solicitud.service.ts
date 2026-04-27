@@ -35,6 +35,18 @@ export class SolicitudService {
     );
   }
 
+  async crearSolicitudAusencia(formData: FormData): Promise<Solicitud> {
+    return await firstValueFrom(
+      this.http.post<Solicitud>(`${this.baseUrl}/ausencia`, formData)
+    );
+  }
+
+  async obtenerTodas(): Promise<Solicitud[]> {
+    return await firstValueFrom(
+      this.http.get<Solicitud[]>(`${this.baseUrl}`)
+    );
+  }
+
   async resolverSolicitud(idSolicitud: string, aprobado: boolean, idRevisor: string): Promise<Solicitud> {
     return await firstValueFrom(
       this.http.put<Solicitud>(`${this.baseUrl}/${idSolicitud}/resolver?aprobado=${aprobado}&idRevisor=${idRevisor}`, {})

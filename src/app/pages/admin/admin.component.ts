@@ -8,7 +8,8 @@ import { Fichaje } from 'src/app/interface/attendance';
 
 import { Sidebar } from './sidebar';
 import { SolicitudService } from '../../services/solicitud.service';
-import { Solicitud } from '../../interface/attendance';
+import { HorarioService } from '../../services/horario.service';
+import { Solicitud, Horario } from '../../interface/attendance';
 
 import { FormsModule } from '@angular/forms';
 
@@ -23,6 +24,7 @@ export class PanelAdministrador implements OnInit {
   private authService = inject(AuthService);
   private attendanceService = inject(AttendanceService);
   private solicitudService = inject(SolicitudService);
+  private horarioService = inject(HorarioService);
   private enrutador = inject(Router);
 
   datosUsuario = signal<any>(null);
@@ -34,19 +36,20 @@ export class PanelAdministrador implements OnInit {
   // Lista de usuarios y filtrado
   trabajadores = this.authService.trabajadores;
   seccionActiva = signal<'resumen' | 'usuarios' | 'solicitudes'>('usuarios');
-  
-  // Solicitudes de modificación
-  solicitudesPendientes = signal<Solicitud[]>([]);
+
+  // Solicitudes
+  solicitudesAusencia = signal<Solicitud[]>([]);
+  correccionesFichaje = signal<Fichaje[]>([]);
 
   // Detalle de usuario seleccionado
   usuarioSeleccionado = signal<User | null>(null);
   registrosUsuario = signal<Fichaje[]>([]);
   filtroTemporal = signal<'hoy' | 'semana' | 'mes' | 'todos'>('todos'); // Para compatibilidad
-  
+
   // Nuevos selectores detallados e INTERFAZ DE CALENDARIO
   tipoFiltro = signal<'dia' | 'semana' | 'mes' | 'todos' | 'rango'>('todos');
   fechaFiltro = signal<string>(new Date().toISOString().split('T')[0]); // YYYY-MM-DD
-  
+
   // Estado del nuevo calendario
   mesCalendario = signal(new Date());
   rangoInicio = signal<Date | null>(null);
@@ -55,6 +58,36 @@ export class PanelAdministrador implements OnInit {
   // UI - Creación y Edición de usuario
   mostrarFormCrear = signal(false);
   usuarioAEditar = signal<User | null>(null);
+
+  // UI - Gestión de Horarios
+  mostrarModalHorario = signal(false);
+  usuarioParaHorario = signal<User | null>(null);
+  horariosUsuario = signal<Horario[]>([]);
+  nuevoHorario = signal<{
+    nombre: string,
+    horaEntrada: string,
+    horaSalida: string,
+    diasLaborables: Record<string, boolean>,
+    fechaInicio: string
+  }>({
+    nombre: 'Jornada Estándar',
+    horaEntrada: '08:00',
+    horaSalida: '16:00',
+    diasLaborables: {
+      lunes: true, martes: true, miercoles: true, jueves: true, viernes: true, sabado: false, domingo: false
+    },
+    fechaInicio: new Date().toISOString().split('T')[0]
+  });
+
+  toggleDia(dia: string) {
+    this.nuevoHorario.update(h => ({
+      ...h,
+      diasLaborables: {
+        ...h.diasLaborables,
+        [dia]: !h.diasLaborables[dia]
+      }
+    }));
+  }
 
   nuevoUsuario = signal({
     nombre: '',
@@ -83,10 +116,10 @@ export class PanelAdministrador implements OnInit {
     const q = this.busquedaEmpleados().toLowerCase().trim();
     const lista = this.trabajadores();
     if (!q) return lista;
-    
-    return lista.filter(u => 
-      u.nombre.toLowerCase().includes(q) || 
-      (u.apellido1 || '').toLowerCase().includes(q) || 
+
+    return lista.filter(u =>
+      u.nombre.toLowerCase().includes(q) ||
+      (u.apellido1 || '').toLowerCase().includes(q) ||
       (u.apellido2 || '').toLowerCase().includes(q)
     );
   });
@@ -101,11 +134,11 @@ export class PanelAdministrador implements OnInit {
     const dRef = new Date(fechaRef);
     const rIni = this.rangoInicio();
     const rFin = this.rangoFin();
-    
+
     return registros.filter(r => {
       const dReg = new Date(r.fecha);
-      dReg.setHours(0,0,0,0);
-      
+      dReg.setHours(0, 0, 0, 0);
+
       if (tipo === 'rango' && rIni) {
         if (!rFin) return dReg.toDateString() === rIni.toDateString();
         return dReg >= rIni && dReg <= rFin;
@@ -114,11 +147,11 @@ export class PanelAdministrador implements OnInit {
       if (tipo === 'dia') {
         return dReg.toDateString() === dRef.toDateString();
       }
-      
+
       if (tipo === 'mes') {
         return dReg.getMonth() === dRef.getMonth() && dReg.getFullYear() === dRef.getFullYear();
       }
-      
+
       if (tipo === 'semana') {
         // Calcular inicio y fin de la semana de la fecha de referencia
         const day = dRef.getDay();
@@ -126,14 +159,14 @@ export class PanelAdministrador implements OnInit {
         const inicioSemana = new Date(dRef);
         inicioSemana.setDate(diff);
         inicioSemana.setHours(0, 0, 0, 0);
-        
+
         const finSemana = new Date(inicioSemana);
         finSemana.setDate(inicioSemana.getDate() + 6);
         finSemana.setHours(23, 59, 59, 999);
-        
+
         return dReg >= inicioSemana && dReg <= finSemana;
       }
-      
+
       return true;
     });
   });
@@ -144,12 +177,12 @@ export class PanelAdministrador implements OnInit {
     const usuario = this.usuarioSeleccionado();
     const tipo = this.tipoFiltro();
     const fechaRef = this.fechaFiltro();
-    
+
     if (!usuario) return null;
 
     const horasTotales = filtrados.reduce((acc, curr) => acc + (curr.horasTrabajadas || 0), 0);
     const horasSemanales = usuario.horasSemanales || 40;
-    
+
     let horasObjetivo = 0;
     if (tipo === 'dia') {
       horasObjetivo = horasSemanales / 5;
@@ -194,6 +227,20 @@ export class PanelAdministrador implements OnInit {
     setInterval(() => this.fechaActual.set(new Date()), 1000);
     await this.cargarUsuarios();
     await this.cargarSolicitudes();
+  }
+
+  async cargarSolicitudes() {
+    try {
+      // 1. Correcciones de fichaje (pendientes en la tabla fichajes)
+      const corr = await this.attendanceService.obtenerPendientesRevision();
+      this.correccionesFichaje.set(corr);
+
+      // 2. Solicitudes de ausencia (pendientes en la tabla solicitudes)
+      const sol = await this.solicitudService.obtenerPendientes();
+      this.solicitudesAusencia.set(sol);
+    } catch (error) {
+      console.error('Error al cargar solicitudes', error);
+    }
   }
 
   async cargarUsuarios() {
@@ -283,7 +330,7 @@ export class PanelAdministrador implements OnInit {
     }
   }
 
-  async borrarUsuario(id: number) {
+  async borrarUsuario(id: string) {
     if (confirm('¿Seguro que quieres eliminar este usuario permanentemente?')) {
       try {
         await this.authService.deleteUser(id);
@@ -297,13 +344,84 @@ export class PanelAdministrador implements OnInit {
     }
   }
 
-  
+  // --- Gestión de Horarios ---
+  async abrirGestionHorario(usuario: User) {
+    this.usuarioParaHorario.set(usuario);
+    try {
+      const lista = await this.horarioService.listarPorUsuario(usuario.id.toString());
+      this.horariosUsuario.set(lista);
+      this.mostrarModalHorario.set(true);
+    } catch (error) {
+      console.error('Error al cargar horarios', error);
+    }
+  }
+
+  async guardarHorario() {
+    const user = this.usuarioParaHorario();
+    if (!user) return;
+
+    const h = this.nuevoHorario();
+    const diasSeleccionados = Object.entries(h.diasLaborables)
+      .filter(([_, value]) => value)
+      .map(([key, _]) => key)
+      .join(',');
+
+    if (!diasSeleccionados) {
+      alert('Selecciona al menos un día laborable');
+      return;
+    }
+
+    const payload = {
+      idUsuario: user.id,
+      nombre: h.nombre,
+      horaEntrada: h.horaEntrada + ':00',
+      horaSalida: h.horaSalida + ':00',
+      diasLaborables: diasSeleccionados,
+      fechaInicio: h.fechaInicio
+    };
+
+    try {
+      await this.horarioService.asignarHorario(payload);
+      alert('Horario asignado correctamente');
+      this.abrirGestionHorario(user); // Recargar lista
+    } catch (error) {
+      console.error('Error al asignar horario', error);
+      alert('Error al asignar horario');
+    }
+  }
+
+  async eliminarHorario(id: string) {
+    if (confirm('¿Eliminar este horario?')) {
+      try {
+        await this.horarioService.eliminar(id);
+        const user = this.usuarioParaHorario();
+        if (user) this.abrirGestionHorario(user);
+      } catch (error) {
+        console.error('Error al eliminar horario', error);
+      }
+    }
+  }
+
+
+
+  formatDias(dias: string): string {
+    if (!dias) return '';
+    return dias.split(',')
+      .map(d => d.trim())
+      .map(d => d.charAt(0).toUpperCase() + d.slice(1).toLowerCase())
+      .join(', ');
+  }
+
+  checkDiaLaboral(diasStr: string, dia: string): boolean {
+    if (!diasStr) return false;
+    return diasStr.toLowerCase().split(',').some(d => d.trim() === dia.toLowerCase());
+  }
 
   // --- UI Helpers ---
   cambiarSeccion(seccion: 'resumen' | 'usuarios' | 'solicitudes') {
     this.seccionActiva.set(seccion);
     if (seccion === 'resumen') this.usuarioSeleccionado.set(null);
-    if (seccion === 'solicitudes') this.cargarSolicitudes();
+    //if (seccion === 'solicitudes') this.cargarSolicitudes();
   }
 
   cambiarFiltro(nuevoFiltro: 'dia' | 'semana' | 'mes' | 'todos') {
@@ -333,16 +451,16 @@ export class PanelAdministrador implements OnInit {
     const mes = this.mesCalendario();
     const año = mes.getFullYear();
     const m = mes.getMonth();
-    
+
     const primerDia = new Date(año, m, 1);
     const ultimoDia = new Date(año, m + 1, 0);
-    
+
     // Ajuste para que lunes sea el primer día (0:dom, 1:lun...) -> (0:lun, 6:dom)
     let startDay = primerDia.getDay() - 1;
     if (startDay === -1) startDay = 6;
-    
+
     const dias = [];
-    
+
     // Días del mes anterior para completar la primera semana
     const ultimoMesPasado = new Date(año, m, 0);
     for (let i = startDay - 1; i >= 0; i--) {
@@ -351,7 +469,7 @@ export class PanelAdministrador implements OnInit {
         enMesActual: false
       });
     }
-    
+
     // Días del mes actual
     for (let i = 1; i <= ultimoDia.getDate(); i++) {
       dias.push({
@@ -359,7 +477,7 @@ export class PanelAdministrador implements OnInit {
         enMesActual: true
       });
     }
-    
+
     // Días del mes siguiente para completar la cuadrícula (6 filas x 7 días = 42)
     const padding = 42 - dias.length;
     for (let i = 1; i <= padding; i++) {
@@ -368,7 +486,7 @@ export class PanelAdministrador implements OnInit {
         enMesActual: false
       });
     }
-    
+
     return dias;
   }
 
@@ -380,7 +498,7 @@ export class PanelAdministrador implements OnInit {
 
   seleccionarDia(dia: Date) {
     const fecha = new Date(dia);
-    fecha.setHours(0,0,0,0);
+    fecha.setHours(0, 0, 0, 0);
 
     const inicio = this.rangoInicio();
     const fin = this.rangoFin();
@@ -403,7 +521,7 @@ export class PanelAdministrador implements OnInit {
 
   estaEnRango(dia: Date): boolean {
     const d = new Date(dia);
-    d.setHours(0,0,0,0);
+    d.setHours(0, 0, 0, 0);
     const ini = this.rangoInicio();
     const fin = this.rangoFin();
     if (!ini) return false;
@@ -417,38 +535,14 @@ export class PanelAdministrador implements OnInit {
     const m = (dia.getMonth() + 1).toString().padStart(2, '0');
     const d = dia.getDate().toString().padStart(2, '0');
     const dStrLocal = `${y}-${m}-${d}`;
-    
+
     return this.registrosUsuario().some(r => r.fecha === dStrLocal);
   }
 
   // --- Gestión de Solicitudes ---
-  async cargarSolicitudes() {
-    try {
-      // 1. Cargar solicitudes tradicionales (Vacaciones, etc.)
-      const solicitudes = await this.solicitudService.obtenerPendientes();
-      
-      // 2. Cargar correcciones desde la tabla de fichajes
-      const fichajesPendientes = await this.attendanceService.obtenerPendientesRevision();
-      
-      // 3. Mapear fichajes a formato solicitud para la UI
-      const correccionesMapeadas: any[] = fichajesPendientes.map(f => ({
-        idSolicitud: f.idFichajes, // Usamos el ID del fichaje
-        usuario: f.usuario,
-        tipo: 'correccion_fichaje',
-        estado: 'pendiente',
-        comentario: f.comentario,
-        horaEntradaPropuesta: f.horaEntradaPropuesta,
-        horaSalidaPropuesta: f.horaSalidaPropuesta,
-        fichajeRef: f,
-        esFichajeDirecto: true // Bandera para saber que viene de fichajes
-      }));
 
-      // 4. Combinar ambas listas
-      this.solicitudesPendientes.set([...solicitudes, ...correccionesMapeadas]);
-    } catch (error) {
-      console.error('Error cargando solicitudes:', error);
-    }
-  }
+
+
 
   async resolverSolicitud(solicitud: any, aprobado: boolean) {
     const adminId = this.authService.getUserId();
@@ -462,7 +556,7 @@ export class PanelAdministrador implements OnInit {
         // Resolver en la tabla de solicitudes tradicional
         await this.solicitudService.resolverSolicitud(solicitud.idSolicitud, aprobado, adminId);
       }
-      
+
       alert(aprobado ? 'Solicitud aprobada' : 'Solicitud rechazada');
       await this.cargarSolicitudes(); // Recargar lista
     } catch (error) {
@@ -474,13 +568,13 @@ export class PanelAdministrador implements OnInit {
     try {
       await this.attendanceService.resolverCorreccion(fichaje.idFichajes, aprobado);
       alert(aprobado ? 'Corrección aplicada' : 'Corrección rechazada');
-      
+
       // Recargar el historial del usuario seleccionado para ver los cambios
       const usuario = this.usuarioSeleccionado();
       if (usuario) {
         await this.verHistorial(usuario);
       }
-      
+
       // También refrescar la lista global de solicitudes
       await this.cargarSolicitudes();
     } catch (error) {

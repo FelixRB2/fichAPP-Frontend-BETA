@@ -16,15 +16,24 @@ export interface Solicitud {
   idSolicitud: string;
   usuario: any;
   revisor?: any;
-  tipo: 'vacaciones' | 'permiso_horas' | 'baja_medica' | 'correccion_fichaje';
   estado: 'pendiente' | 'aprobada' | 'rechazada';
   fechaInicio: string;
   fechaFin: string;
-  motivo?: 'error_entrada' | 'error_salida' | 'olvido_fichaje' | 'problema_tecnico' | 'otro';
+  motivo: 'vacaciones' | 'permiso_horas' | 'baja_medica' | 'maternidad' | 'paternidad' | 'defuncion' | 'asuntos_propios';
   comentario: string;
   fichajeRef?: Fichaje;
-  horaEntradaPropuesta?: string;
-  horaSalidaPropuesta?: string;
+  archivoNombre?: string;
+  archivoUrl?: string;
   fechaRevision?: string;
   createdAt?: string;
+}
+
+export interface Horario {
+  idHorario: string;
+  nombre: string;
+  horaEntrada: string;
+  horaSalida: string;
+  diasLaborables: string; // "lunes,martes,..."
+  fechaInicio: string;
+  fechaFin: string | null;
 }

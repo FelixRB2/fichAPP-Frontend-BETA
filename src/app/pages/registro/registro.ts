@@ -31,9 +31,22 @@ export class Registro {
     if (this.registroForm.valid) {
       this.isLoading.set(true);
       this.errorMessage.set(null);
-      
+
       try {
-        const response = await this.authService.register(this.registroForm.value);
+        const formValue = this.registroForm.value;
+
+        const payload = {
+          nombre: formValue.nombre,
+          apellido1: formValue.apellido1,
+          apellido2: formValue.apellido2,
+          email: formValue.email,       // email → correo
+          puesto: formValue.puesto,
+          contrasena: formValue.password  // password → contrasena
+        };
+
+        const response = await this.authService.register(payload);
+
+
         console.log('Registro exitoso', response);
         this.router.navigate(['/login']); // Redirigir al login tras el registro
       } catch (err) {

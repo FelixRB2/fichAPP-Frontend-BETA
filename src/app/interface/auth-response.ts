@@ -2,6 +2,6 @@ export interface AuthResponse {
   token: string;
   rol: string;
   nombre: string;
-  id: number;
+  id: string;
   user?: any; // To match the check in service
 }

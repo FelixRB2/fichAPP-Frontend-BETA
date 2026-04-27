@@ -28,8 +28,8 @@ export class AuthService {
       localStorage.setItem('userData', JSON.stringify(response));
     }
 
-    return response; 
-  } 
+    return response;
+  }
 
   getUserData() {
     const data = localStorage.getItem('userData');
@@ -50,10 +50,10 @@ export class AuthService {
     const rawUsers = await firstValueFrom(
       this.http.get<any[]>(`${this.userBaseUrl}`)
     );
-    
+
     // Mapeo selectivo: Backend -> Frontend
     const mappedUsers = rawUsers.map(u => this.mapUser(u));
-    
+
     this.trabajadores.set(mappedUsers);
     return mappedUsers;
   }
@@ -96,7 +96,7 @@ export class AuthService {
     const updatedUser = await firstValueFrom(
       this.http.put<any>(`${this.userBaseUrl}/${id}`, userData)
     );
-    this.trabajadores.update(users => 
+    this.trabajadores.update(users =>
       users.map(u => u.id === id ? this.mapUser(updatedUser) : u)
     );
   }
@@ -105,7 +105,7 @@ export class AuthService {
     await firstValueFrom(
       this.http.patch<void>(`${this.userBaseUrl}/${id}/estado`, { activo })
     );
-    this.trabajadores.update(users => 
+    this.trabajadores.update(users =>
       users.map(u => u.id === id ? { ...u, activo } : u)
     );
   }

@@ -97,6 +97,7 @@
                     <span class="text-[10px] uppercase font-black px-2 py-1 rounded bg-emerald-500/10 text-emerald-500 leading-none">
                       {{ entry.estado }}
                     </span>
+                    @if (entry.horaSalida) {
                     <button 
                       (click)="abrirModalCorreccion(entry)"
                       class="p-1.5 rounded-lg bg-zinc-900 text-zinc-500 hover:text-indigo-400 hover:bg-indigo-400/10 transition-all opacity-0 group-hover:opacity-100"
@@ -104,6 +105,7 @@
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
                     </button>
+                    }
                   </div>
                 </div>
               </div>
@@ -113,39 +115,136 @@
       </div>
 
       <!-- Stats & Profile Sidebar -->
-      <div class="space-y-8">
-        <div class="bg-gradient-to-br from-indigo-600 to-purple-600 p-8 rounded-[2.5rem] shadow-2xl shadow-indigo-500/20 text-white">
-          <h4 class="text-white/60 font-bold uppercase tracking-widest text-[10px] mb-4">Tu Resumen Semanal</h4>
-          <div class="flex flex-col gap-1 mb-8">
-            <span class="text-5xl font-black italic">{{ horasSemanales() }}</span>
-            <span class="text-white/80">de 40h esperadas</span>
-          </div>
-          <div class="h-2 w-full bg-black/20 rounded-full overflow-hidden">
-            <div class="h-full bg-white rounded-full transition-all duration-1000" [style.width.%]="porcentajeSemanal()"></div>
-          </div>
-        </div>
+        <div class="space-y-8">
+          @if (filtroTemporal() !== 'todos') {
+            <div class="bg-gradient-to-br from-indigo-600 to-purple-600 p-8 rounded-[2.5rem] shadow-2xl shadow-indigo-500/20 text-white">
+              <h4 class="text-white/60 font-bold uppercase tracking-widest text-[10px] mb-4">{{ resumenPeriodo().titulo }}</h4>
+              <div class="flex flex-col gap-1 mb-8">
+                <span class="text-5xl font-black italic">{{ resumenPeriodo().totalFormateado }}</span>
+                <span class="text-white/80">de {{ resumenPeriodo().objetivoFormateado }} esperadas</span>
+              </div>
+              <div class="h-2 w-full bg-black/20 rounded-full overflow-hidden">
+                <div class="h-full bg-white rounded-full transition-all duration-1000" [style.width.%]="resumenPeriodo().porcentaje"></div>
+              </div>
+            </div>
+          }
 
-        <div class="bg-zinc-900/40 backdrop-blur-2xl border border-zinc-800/50 p-6 rounded-[2.5rem]">
-            <div class="flex items-center gap-4 mb-6">
-                <div class="h-16 w-16 rounded-full bg-zinc-800 border-2 border-indigo-500 p-1">
-                    <div class="h-full w-full rounded-full bg-zinc-950 flex items-center justify-center text-zinc-500 font-bold">
-                        {{ datosUsuario()?.nombre?.charAt(0) }}
-                    </div>
-                </div>
-                <div>
-                    <h5 class="font-bold text-white">{{ datosUsuario()?.nombre }}</h5>
-                    <p class="text-xs text-zinc-500">{{ datosUsuario()?.rol | uppercase }}</p>
-                </div>
-            </div>
-            
-            <div class="grid grid-cols-2 gap-3">
-                <div class="bg-zinc-950/60 p-4 rounded-2xl border border-zinc-800/30">
-                    <p class="text-[10px] text-zinc-500 uppercase font-black mb-1">Puesto</p>
-                    <p class="text-sm font-bold text-indigo-400">{{ datosUsuario()?.puesto || 'General' }}</p>
-                </div>
-            </div>
+
+          <div class="bg-zinc-900/40 backdrop-blur-2xl border border-zinc-800/50 p-6 rounded-[2.5rem]">
+              <div class="flex justify-between items-center mb-6 px-2">
+                  <h5 class="text-xs font-black uppercase tracking-widest text-indigo-500">
+                      {{ mesCalendario() | date:'MMMM yyyy' | titlecase }}
+                  </h5>
+                  <div class="flex gap-2">
+                      <button (click)="cambiarMes(-1)" class="h-8 w-8 rounded-xl bg-black border border-zinc-800 flex items-center justify-center text-zinc-500 hover:text-white transition-all">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                      </button>
+                      <button (click)="cambiarMes(1)" class="h-8 w-8 rounded-xl bg-black border border-zinc-800 flex items-center justify-center text-zinc-500 hover:text-white transition-all">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                      </button>
+                  </div>
+              </div>
+
+              <div class="grid grid-cols-7 gap-1 mb-2">
+                  @for (dia of ['L','M','X','J','V','S','D']; track $index) {
+                      <div class="text-[9px] font-black text-zinc-600 text-center uppercase">{{ dia }}</div>
+                  }
+              </div>
+
+              <div class="grid grid-cols-7 gap-1">
+                  @for (dia of diasDelMes; track dia.fecha.getTime()) {
+                      <button 
+                          (click)="seleccionarDia(dia.fecha)"
+                          [class.opacity-20]="!dia.enMesActual"
+                          [class.bg-indigo-600]="estaEnRango(dia.fecha)"
+                          [class.text-white]="estaEnRango(dia.fecha)"
+                          [class.font-black]="estaEnRango(dia.fecha)"
+                          [class.hover:bg-zinc-800]="!estaEnRango(dia.fecha)"
+                          class="h-9 w-full rounded-lg text-[10px] flex flex-col items-center justify-center transition-all relative group"
+                      >
+                          {{ dia.fecha.getDate() }}
+                          @if (tieneRegistros(dia.fecha)) {
+                              <span class="absolute bottom-1 h-1 w-1 rounded-full" 
+                                    [class]="estaEnRango(dia.fecha) ? 'bg-white' : 'bg-indigo-500'"></span>
+                          }
+                      </button>
+                  }
+              </div>
+              
+              <div class="mt-6 pt-4 border-t border-zinc-800/50 flex justify-between items-center text-[10px] font-black uppercase text-zinc-500">
+                  <button (click)="cambiarFiltro('todos')" 
+                          class="hover:text-indigo-400 transition-colors">Limpiar Filtros</button>
+                  <div class="flex gap-2">
+                      <span class="flex items-center gap-1"><span class="h-1.5 w-1.5 rounded-full bg-indigo-500"></span> Jornada</span>
+                  </div>
+              </div>
+          </div>
+
+          <div class="bg-zinc-900/40 backdrop-blur-2xl border border-zinc-800/50 p-6 rounded-[2.5rem]">
+              <div class="flex items-center gap-4 mb-6">
+                  <div class="h-16 w-16 rounded-full bg-zinc-800 border-2 border-indigo-500 p-1">
+                      <div class="h-full w-full rounded-full bg-zinc-950 flex items-center justify-center text-zinc-500 font-bold">
+                          {{ datosUsuario()?.nombre?.charAt(0) }}
+                      </div>
+                  </div>
+                  <div>
+                      <h5 class="font-bold text-white">{{ datosUsuario()?.nombre }}</h5>
+                      <p class="text-xs text-zinc-500">{{ datosUsuario()?.rol | uppercase }}</p>
+                  </div>
+              </div>
+              
+              <div class="grid grid-cols-2 gap-3">
+                  <div class="bg-zinc-950/60 p-4 rounded-2xl border border-zinc-800/30">
+                      <p class="text-[10px] text-zinc-500 uppercase font-black mb-1">Puesto</p>
+                      <p class="text-sm font-bold text-indigo-400">{{ datosUsuario()?.puesto || 'General' }}</p>
+                  </div>
+                  
+                  @if (horariosVigentes().length > 0) {
+                  <div class="col-span-2 bg-indigo-500/5 p-5 rounded-[2rem] border border-indigo-500/10">
+                      <div class="flex items-center gap-2 mb-4">
+                          <div class="p-2 bg-indigo-500/10 rounded-xl">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                          </div>
+                          <p class="text-[10px] text-indigo-400 uppercase font-black tracking-widest">Jornada Laboral</p>
+                      </div>
+                      
+                      <div class="space-y-4">
+                          @for (h of horariosVigentes(); track h.idHorario) {
+                          <div class="relative pl-4 border-l-2 border-indigo-500/20">
+                              <p class="text-base font-black text-white font-mono leading-none mb-1.5 flex items-center gap-2">
+                                  {{ h.horaEntrada.substring(0,5) }} 
+                                  <span class="text-zinc-600 text-xs font-normal">→</span> 
+                                  {{ h.horaSalida.substring(0,5) }}
+                              </p>
+                              <div class="flex gap-1 mt-2">
+                                  @for (dia of [
+                                      {key: 'lunes', label: 'L'},
+                                      {key: 'martes', label: 'M'},
+                                      {key: 'miercoles', label: 'X'},
+                                      {key: 'jueves', label: 'J'},
+                                      {key: 'viernes', label: 'V'},
+                                      {key: 'sabado', label: 'S'},
+                                      {key: 'domingo', label: 'D'}
+                                  ]; track dia.key) {
+                                      <div 
+                                          [class]="checkDiaLaboral(h.diasLaborables, dia.key) 
+                                              ? 'bg-indigo-600/20 text-indigo-400 border-indigo-500/30' 
+                                              : 'bg-zinc-900/50 text-zinc-700 border-zinc-800/50'"
+                                          class="h-5 w-5 rounded-md border flex items-center justify-center text-[8px] font-black transition-all"
+                                          [title]="dia.key | titlecase"
+                                      >
+                                          {{ dia.label }}
+                                      </div>
+                                  }
+                              </div>
+                          </div>
+                          }
+                      </div>
+                  </div>
+                  }
+              </div>
+          </div>
         </div>
-      </div>
     </div>
   </div>
 </div>

@@ -39,16 +39,17 @@ export class AttendanceService {
       historialReciente: datos.recentHistory || [],
       fichajeActivo: datos.activeFichaje || null,
       horasSemanalesFormateadas: datos.weeklyHours || '0h 00m',
-      porcentajeSemanal: datos.weeklyPercentage || 0
+      porcentajeSemanal: datos.weeklyPercentage || 0,
+      horasSemanales: datos.horasSemanales || 40
     };
   }
 
   async solicitarCorreccion(idFichaje: string, horaEntrada: string, horaSalida: string, comentario: string): Promise<Fichaje> {
     return await firstValueFrom(
-      this.http.post<Fichaje>(`${this.baseUrl}/${idFichaje}/solicitar-correccion`, { 
-        horaEntrada, 
-        horaSalida, 
-        comentario 
+      this.http.post<Fichaje>(`${this.baseUrl}/${idFichaje}/solicitar-correccion`, {
+        horaEntrada,
+        horaSalida,
+        comentario
       })
     );
   }

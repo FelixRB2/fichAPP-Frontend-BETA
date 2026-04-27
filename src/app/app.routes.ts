@@ -6,6 +6,7 @@ import { authGuard } from './guards/auth.guard';
 import { roleGuard } from './guards/role.guard';
 import { PanelControl } from './pages/dashboard/dashboard';
 import { PanelAdministrador } from './pages/admin/admin.component';
+import { SolicitudesUsuario } from './pages/solicitudes/solicitudes';
 
 export const routes: Routes = [
     { path: '', component: LandingPage },
@@ -16,6 +17,11 @@ export const routes: Routes = [
         path: 'dashboard', 
         component: PanelControl, 
         canActivate: [authGuard] 
+    },
+    {
+        path: 'solicitudes',
+        component: SolicitudesUsuario,
+        canActivate: [authGuard]
     },
     { 
         path: 'admin', 

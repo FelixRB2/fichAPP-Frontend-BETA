@@ -43,7 +43,7 @@ export class Login {
         const response = await this.authService.login(credentials);
         console.log('Login exitoso', response);
         // Redirigir según el rol
-        if (response.rol.toLowerCase() === 'admin') {
+        if (response.rol.toLowerCase().includes('admin')) {
           this.router.navigate(['/admin']); 
         } else {
           this.router.navigate(['/dashboard']); 

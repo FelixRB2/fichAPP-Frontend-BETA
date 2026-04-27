@@ -26,6 +26,13 @@ import { TitleCasePipe } from '@angular/common';
           <span class="hidden lg:block font-bold text-sm tracking-wide">Panel de Control</span>
         </a>
 
+        <a routerLink="/solicitudes" routerLinkActive="bg-white/5 text-indigo-400 border-indigo-500/50 shadow-inner shadow-indigo-500/5" class="group cursor-pointer flex items-center justify-center lg:justify-start gap-4 p-3 rounded-xl hover:bg-white/5 text-zinc-500 hover:text-zinc-200 border border-transparent transition-all duration-200">
+          <div class="h-10 w-10 flex items-center justify-center rounded-lg bg-zinc-900/50 group-hover:scale-110 transition-transform">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
+          </div>
+          <span class="hidden lg:block font-bold text-sm tracking-wide">Solicitudes</span>
+        </a>
+
         @if (authService.getRole()?.includes('admin')) {
           <a routerLink="/admin" routerLinkActive="bg-white/5 text-indigo-400 border-indigo-500/50 shadow-inner shadow-indigo-500/5" class="group cursor-pointer flex items-center justify-center lg:justify-start gap-4 p-3 rounded-xl hover:bg-white/5 text-zinc-500 hover:text-zinc-200 border border-transparent transition-all duration-200">
             <div class="h-10 w-10 flex items-center justify-center rounded-lg bg-zinc-900/50 group-hover:scale-110 transition-transform">
