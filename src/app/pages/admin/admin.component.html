@@ -224,9 +224,10 @@
                             </div>
                         </div>
                         <div class="flex justify-end mt-6">
-                            <button (click)="crearUsuario()"
-                                class="bg-indigo-600 hover:bg-white hover:text-indigo-600 text-white font-black px-8 py-3 rounded-xl text-xs uppercase transition-all">Guardar
-                                Empleado</button>
+                            <button (click)="crearUsuario()" [disabled]="cargando()"
+                                class="bg-indigo-600 hover:bg-white hover:text-indigo-600 text-white font-black px-8 py-3 rounded-xl text-xs uppercase transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+                                {{ cargando() ? 'Creando...' : 'Guardar Empleado' }}
+                            </button>
                         </div>
                     </div>
                 }

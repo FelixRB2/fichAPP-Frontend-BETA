@@ -57,6 +57,7 @@ export class PanelAdministrador implements OnInit {
 
   // UI - Creación y Edición de usuario
   mostrarFormCrear = signal(false);
+  cargando = signal(false);
   usuarioAEditar = signal<User | null>(null);
 
   // UI - Gestión de Horarios
@@ -306,9 +307,11 @@ export class PanelAdministrador implements OnInit {
       return;
     }
 
-    // Mapeo: Frontend -> Backend (Spring Boot Request Model)
+    if (this.cargando()) return;
+    this.cargando.set(true);
+
     const backendData = {
-      nombreRol: data.rol.charAt(0).toUpperCase() + data.rol.slice(1).toLowerCase(), // 'Trabajador' o 'Administrador'
+      nombreRol: data.rol.charAt(0).toUpperCase() + data.rol.slice(1).toLowerCase(),
       nombre: data.nombre,
       apellido1: data.apellido1,
       apellido2: data.apellido2,
@@ -318,15 +321,17 @@ export class PanelAdministrador implements OnInit {
       contrasena: data.password
     };
 
-    console.log('backendData:', backendData);
-
     try {
       await this.authService.register(backendData);
       this.mostrarFormCrear.set(false);
       this.nuevoUsuario.set({ nombre: '', apellido1: '', apellido2: '', puesto: '', horasSemanales: 40, email: '', password: '', rol: 'TRABAJADOR' });
       await this.cargarUsuarios();
-    } catch (error) {
+      alert('Usuario creado con éxito y correo enviado.');
+    } catch (error: any) {
       console.error('Error al crear usuario', error);
+      alert('Error: ' + (error.error || 'No se pudo crear el usuario. Verifica si el email ya existe.'));
+    } finally {
+      this.cargando.set(false);
     }
   }
 

@@ -38,9 +38,7 @@ export class AuthService {
 
   async register(userData: any): Promise<any> {
     return await firstValueFrom(
-      this.http.post<any>(`${this.baseUrl}/register`, userData, {
-        responseType: 'text' as 'json'
-      })
+      this.http.post<any>(`${this.baseUrl}/register`, userData)
     );
   }
 
