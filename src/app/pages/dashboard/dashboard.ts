@@ -226,13 +226,17 @@ export class PanelControl implements OnInit {
     if (!idUsuario) return;
 
     try {
+      const pos = await this.getPosition();
+      const lat = pos?.lat || null;
+      const lng = pos?.lng || null;
+
       if (this.fichado()) {
         const activo = this.fichajeActivo();
         if (activo) {
-          await this.attendanceService.detenerJornada(activo.idFichajes);
+          await this.attendanceService.detenerJornada(activo.idFichajes, lat, lng);
         }
       } else {
-        await this.attendanceService.iniciarJornada(idUsuario, 'Entrada desde Dashboard');
+        await this.attendanceService.iniciarJornada(idUsuario, lat, lng, 'Entrada desde Dashboard');
       }
       await this.cargarDatos();
     } catch (error) {
@@ -466,5 +470,25 @@ export class PanelControl implements OnInit {
 
       alert('Error: ' + mensaje);
     }
+
+  }
+
+  getPosition(): Promise<{ lat: number, lng: number } | null> {
+    return new Promise((resolve) => {
+      if (!navigator.geolocation) {
+        resolve(null);
+        return;
+      }
+      navigator.geolocation.getCurrentPosition(
+        resp => {
+          resolve({ lat: resp.coords.latitude, lng: resp.coords.longitude });
+        },
+        err => {
+          console.warn('Error obteniendo ubicación:', err);
+          resolve(null);
+        },
+        { timeout: 5000 }
+      );
+    });
   }
 }

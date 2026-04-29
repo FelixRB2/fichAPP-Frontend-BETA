@@ -10,6 +10,10 @@ export interface Fichaje {
   comentario: string;
   horaEntradaPropuesta?: string;
   horaSalidaPropuesta?: string;
+  latitudEntrada?: number;
+  longitudEntrada?: number;
+  latitudSalida?: number;
+  longitudSalida?: number;
 }
 
 export interface Solicitud {

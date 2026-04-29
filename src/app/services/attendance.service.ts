@@ -11,15 +11,15 @@ export class AttendanceService {
   private http = inject(HttpClient);
   private readonly baseUrl = `${environment.apiUrl}/fichajes`;
 
-  async iniciarJornada(idUsuario: string, comentario: string = ''): Promise<Fichaje> {
+  async iniciarJornada(idUsuario: string, latitud: number | null, longitud: number | null, comentario: string = ''): Promise<Fichaje> {
     return await firstValueFrom(
-      this.http.post<Fichaje>(`${this.baseUrl}`, { idUsuario, comentario })
+      this.http.post<Fichaje>(`${this.baseUrl}`, { idUsuario, latitud, longitud, comentario })
     );
   }
 
-  async detenerJornada(idFichaje: string): Promise<Fichaje> {
+  async detenerJornada(idFichaje: string, latitud: number | null, longitud: number | null): Promise<Fichaje> {
     return await firstValueFrom(
-      this.http.put<Fichaje>(`${this.baseUrl}/${idFichaje}/salida`, {})
+      this.http.put<Fichaje>(`${this.baseUrl}/${idFichaje}/salida`, { latitud, longitud })
     );
   }
 
