@@ -12,6 +12,7 @@ import { HorarioService } from '../../services/horario.service';
 import { Solicitud, Horario } from '../../interface/attendance';
 
 import { FormsModule } from '@angular/forms';
+import { async } from 'rxjs';
 
 @Component({
   selector: 'app-admin',
@@ -88,6 +89,7 @@ export class PanelAdministrador implements OnInit {
         [dia]: !h.diasLaborables[dia]
       }
     }));
+
   }
 
   nuevoUsuario = signal({
@@ -100,6 +102,7 @@ export class PanelAdministrador implements OnInit {
     password: '',
     rol: 'TRABAJADOR'
   });
+
 
   // Estadísticas globales (reactivas a la lista de trabajadores)
   estadisticas = computed(() => {
@@ -307,6 +310,14 @@ export class PanelAdministrador implements OnInit {
       return;
     }
 
+    if (data.horasSemanales < 1) {
+      alert('Las horas semanales no pueden ser menor que uno.');
+      return;
+  };
+
+  
+
+
     if (this.cargando()) return;
     this.cargando.set(true);
 
@@ -373,6 +384,11 @@ export class PanelAdministrador implements OnInit {
 
     if (!diasSeleccionados) {
       alert('Selecciona al menos un día laborable');
+      return;
+    }
+
+    if (h.horaSalida <= h.horaEntrada) {
+      alert('La hora de salida no puede ser menor o igual que la de entrada');
       return;
     }
 
