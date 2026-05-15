@@ -56,6 +56,13 @@ export class AuthService {
     return mappedUsers;
   }
 
+  async getUserById(id: string | number): Promise<User> {
+    const rawUser = await firstValueFrom(
+      this.http.get<any>(`${this.userBaseUrl}/${id}`)
+    );
+    return this.mapUser(rawUser);
+  }
+
   private mapUser(u: any): User {
     // Manejo de Rol (u.rol.nombreRol en el backend)
     let roleName = 'TRABAJADOR';

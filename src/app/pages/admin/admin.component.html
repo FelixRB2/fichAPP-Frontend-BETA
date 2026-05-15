@@ -1,59 +1,29 @@
 <app-sidebar></app-sidebar>
 
-<div class="ml-20 lg:ml-64 min-h-screen bg-black text-zinc-100 font-sans p-4 md:p-10 transition-all duration-300">
-    <div class="max-w-7xl mx-auto">
-        <!-- Header -->
-        <header class="flex justify-between items-end mb-10 border-b border-zinc-900 pb-8">
-            <div>
-                <span
-                    class="text-[10px] font-black uppercase text-indigo-500 tracking-[0.3em] mb-2 block">Administración
-                    Central</span>
-                <h1 class="text-4xl font-black text-white leading-none">Gestión <span
-                        class="text-zinc-600">Corporativa</span></h1>
-            </div>
-            <div class="flex gap-4">
+<div class="ml-20 lg:ml-64 min-h-screen bg-[#F5F7FB] font-sans transition-all duration-300">
+  <div class="max-w-7xl mx-auto p-6 lg:p-10">
+    <!-- Header -->
+    <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
+      <div>
+        <h1 class="text-3xl lg:text-4xl font-black text-gray-800 tracking-tight leading-none mb-2">
+          Admin <span class="text-[#00B8D4]">Central</span>
+        </h1>
+        <p class="text-gray-400 font-bold uppercase tracking-widest text-[10px]">FichApp • Panel de Control</p>
+      </div>
+            <div class="flex gap-2 p-1.5 bg-white rounded-2xl border border-gray-100 shadow-sm">
                 <button (click)="cambiarSeccion('resumen')"
-                    [class]="seccionActiva() === 'resumen' ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20' : 'bg-zinc-900 text-zinc-500 hover:text-zinc-300'"
-                    class="px-6 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="lucide lucide-pie-chart">
-                        <path d="M21.21 15.89A10 10 0 1 1 8 2.83" />
-                        <path d="M22 12A10 10 0 0 0 12 2v10z" />
-                    </svg>
-                    Dashboard
+                    [class]="seccionActiva() === 'resumen' ? 'bg-[#00B8D4] text-white shadow-lg shadow-teal-500/20' : 'text-gray-400 hover:text-gray-600'"
+                    class="px-5 py-2.5 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all">
+                    Resumen
                 </button>
                 <button (click)="cambiarSeccion('usuarios')"
-                    [class]="seccionActiva() === 'usuarios' ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20' : 'bg-zinc-900 text-zinc-500 hover:text-zinc-300'"
-                    class="px-6 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="lucide lucide-users">
-                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                        <circle cx="9" cy="7" r="4" />
-                        <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                    </svg>
+                    [class]="seccionActiva() === 'usuarios' ? 'bg-[#00B8D4] text-white shadow-lg shadow-teal-500/20' : 'text-gray-400 hover:text-gray-600'"
+                    class="px-5 py-2.5 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all">
                     Plantilla
                 </button>
                 <button (click)="cambiarSeccion('solicitudes')"
-                    [class]="seccionActiva() === 'solicitudes' ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20' : 'bg-zinc-900 text-zinc-500 hover:text-zinc-300'"
-                    class="px-6 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center gap-2">
-                    <div class="relative">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-clipboard-check">
-                            <rect width="8" height="4" x="8" y="2" rx="1" ry="1"/>
-                            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
-                            <path d="m9 14 2 2 4-4"/>
-                        </svg>
-                        @if (solicitudesAusencia().length > 0 || correccionesFichaje().length > 0) {
-                            <span class="absolute -top-1 -right-1 flex h-2 w-2">
-                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                                <span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
-                            </span>
-                        }
-                    </div>
+                    [class]="seccionActiva() === 'solicitudes' ? 'bg-[#00B8D4] text-white shadow-lg shadow-teal-500/20' : 'text-gray-400 hover:text-gray-600'"
+                    class="px-5 py-2.5 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all">
                     Solicitudes
                 </button>
             </div>
@@ -63,9 +33,9 @@
         <!-- Dashboard Content (Stats) -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12 animate-in fade-in duration-500">
             <div
-                class="bg-zinc-900/40 border border-zinc-800/50 p-6 rounded-3xl hover:border-indigo-500/30 transition-all group">
+                class="bg-white border border-gray-100 p-6 rounded-3xl shadow-xl shadow-blue-900/5 hover:border-[#00B8D4]/30 transition-all group">
                 <div
-                    class="h-10 w-10 rounded-xl bg-indigo-600/10 flex items-center justify-center text-indigo-400 mb-4 group-hover:scale-110 transition-transform">
+                    class="h-10 w-10 rounded-xl bg-[#00B8D4]/10 flex items-center justify-center text-[#00B8D4] mb-4 group-hover:scale-110 transition-transform">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="lucide lucide-users">
@@ -75,14 +45,14 @@
                         <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                     </svg>
                 </div>
-                <p class="text-zinc-500 text-sm font-bold uppercase tracking-widest mb-1">Total Plantilla</p>
-                <p class="text-3xl font-black text-white">{{ estadisticas().totalEmpleados }}</p>
+                <p class="text-gray-400 text-[10px] font-black uppercase tracking-widest mb-1">Total Plantilla</p>
+                <p class="text-3xl font-black text-gray-800 tracking-tighter">{{ estadisticas().totalEmpleados }}</p>
             </div>
 
             <div
-                class="bg-zinc-900/40 border border-zinc-800/50 p-6 rounded-3xl hover:border-emerald-500/30 transition-all group">
+                class="bg-white border border-gray-100 p-6 rounded-3xl shadow-xl shadow-blue-900/5 hover:border-emerald-500/30 transition-all group">
                 <div
-                    class="h-10 w-10 rounded-xl bg-emerald-600/10 flex items-center justify-center text-emerald-400 mb-4 group-hover:scale-110 transition-transform">
+                    class="h-10 w-10 rounded-xl bg-emerald-50/50 border border-emerald-100 flex items-center justify-center text-emerald-500 mb-4 group-hover:scale-110 transition-transform">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="lucide lucide-user-check">
@@ -91,14 +61,14 @@
                         <polyline points="16 11 18 13 22 9" />
                     </svg>
                 </div>
-                <p class="text-zinc-500 text-sm font-bold uppercase tracking-widest mb-1">Activos Ahora</p>
-                <p class="text-3xl font-black text-white">{{ estadisticas().activosAhora }}</p>
+                <p class="text-gray-400 text-[10px] font-black uppercase tracking-widest mb-1">Activos Ahora</p>
+                <p class="text-3xl font-black text-gray-800 tracking-tighter">{{ estadisticas().activosAhora }}</p>
             </div>
 
             <div
-                class="bg-zinc-900/40 border border-zinc-800/50 p-6 rounded-3xl hover:border-purple-500/30 transition-all group">
+                class="bg-white border border-gray-100 p-6 rounded-3xl shadow-xl shadow-blue-900/5 hover:border-indigo-500/30 transition-all group">
                 <div
-                    class="h-10 w-10 rounded-xl bg-purple-600/10 flex items-center justify-center text-purple-400 mb-4 group-hover:scale-110 transition-transform">
+                    class="h-10 w-10 rounded-xl bg-indigo-50/50 border border-indigo-100 flex items-center justify-center text-indigo-500 mb-4 group-hover:scale-110 transition-transform">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="lucide lucide-history">
@@ -107,14 +77,14 @@
                         <path d="M12 7v5l4 2" />
                     </svg>
                 </div>
-                <p class="text-zinc-500 text-sm font-bold uppercase tracking-widest mb-1">Media Semanal</p>
-                <p class="text-3xl font-black text-white">{{ formatearTiempo(estadisticas().mediaHoras) }}</p>
+                <p class="text-gray-400 text-[10px] font-black uppercase tracking-widest mb-1">Media Semanal</p>
+                <p class="text-3xl font-black text-gray-800 tracking-tighter">{{ formatearTiempo(estadisticas().mediaHoras) }}</p>
             </div>
 
             <div
-                class="bg-zinc-900/40 border border-zinc-800/50 p-6 rounded-3xl hover:border-red-500/30 transition-all group">
+                class="bg-white border border-gray-100 p-6 rounded-3xl shadow-xl shadow-blue-900/5 hover:border-red-500/30 transition-all group">
                 <div
-                    class="h-10 w-10 rounded-xl bg-red-600/10 flex items-center justify-center text-red-400 mb-4 group-hover:scale-110 transition-transform">
+                    class="h-10 w-10 rounded-xl bg-red-50/50 border border-red-100 flex items-center justify-center text-red-500 mb-4 group-hover:scale-110 transition-transform">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="lucide lucide-alert-triangle">
@@ -123,53 +93,53 @@
                         <path d="M12 17h.01" />
                     </svg>
                 </div>
-                <p class="text-zinc-500 text-sm font-bold uppercase tracking-widest mb-1">Retrasos Hoy</p>
-                <p class="text-3xl font-black text-white">{{ estadisticas().retrasosHoy }}</p>
+                <p class="text-gray-400 text-[10px] font-black uppercase tracking-widest mb-1">Retrasos Hoy</p>
+                <p class="text-3xl font-black text-gray-800 tracking-tighter">{{ estadisticas().retrasosHoy }}</p>
             </div>
         </div>
 
-        <div class="bg-zinc-900/20 border border-zinc-800/50 rounded-[2.5rem] p-20 text-center">
+        <div class="bg-white rounded-[2.5rem] p-20 text-center shadow-xl shadow-blue-900/5">
             <div
-                class="h-20 w-20 bg-indigo-600/10 rounded-full flex items-center justify-center text-indigo-400 mx-auto mb-6">
+                class="h-20 w-20 bg-[#00B8D4]/10 rounded-full flex items-center justify-center text-[#00B8D4] mx-auto mb-6">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="lucide lucide-activity">
                     <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
                 </svg>
             </div>
-            <h2 class="text-2xl font-black text-white mb-2">Monitorización en Tiempo Real</h2>
-            <p class="text-zinc-500 max-w-md mx-auto">Selecciona la sección de <b>Plantilla</b> para gestionar cada
-                perfil individualmente y ver sus registros.</p>
+            <h2 class="text-2xl font-black text-gray-800 mb-2">Monitorización en Tiempo Real</h2>
+            <p class="text-gray-400 max-w-md mx-auto text-sm font-bold uppercase tracking-widest leading-loose">Selecciona la sección de <span class="text-[#00B8D4]">Plantilla</span> para gestionar cada
+                perfil individualmente.</p>
         </div>
         } @else if (seccionActiva() === 'usuarios') {
         <!-- User Management Content (Plantilla) -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 animate-in slide-in-from-bottom duration-500">
             <div [class]="usuarioSeleccionado() ? 'lg:col-span-2' : 'lg:col-span-3'"
-                class="bg-zinc-900/40 border border-zinc-800/50 rounded-[2.5rem] p-8 transition-all duration-500">
-                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8 border-b border-zinc-800 pb-6">
+                class="bg-white border border-gray-100 rounded-[2.5rem] p-8 shadow-xl shadow-blue-900/5 transition-all duration-500">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8 border-b border-gray-50 pb-6">
                     <div class="flex flex-col md:flex-row md:items-center gap-4 w-full md:w-auto">
-                        <h3 class="text-xl font-black text-white">Lista de Empleados</h3>
+                        <h3 class="text-sm font-black text-gray-800 uppercase tracking-widest">Lista de Empleados</h3>
                         <div class="relative group">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-600 group-focus-within:text-indigo-500 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-[#00B8D4] transition-colors">
                                 <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
                             </svg>
                             <input #search (input)="busquedaEmpleados.set(search.value)" type="text" placeholder="Buscar por nombre..." 
-                                class="bg-black border border-zinc-800 rounded-xl pl-9 pr-4 py-2 text-xs text-white focus:border-indigo-600 outline-none transition-all w-full md:w-64">
+                                class="bg-gray-50 border border-gray-100 rounded-xl pl-9 pr-4 py-2 text-xs text-gray-700 focus:border-[#00B8D4] outline-none transition-all w-full md:w-64 font-bold">
                         </div>
                     </div>
                     <button (click)="mostrarFormCrear.set(!mostrarFormCrear())"
-                        class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl text-xs font-black uppercase transition-all shadow-lg shadow-indigo-600/20">
+                        class="bg-[#00B8D4] hover:bg-[#00ACC1] text-white px-6 py-2.5 rounded-xl text-xs font-black uppercase transition-all shadow-lg shadow-teal-500/20">
                         {{ mostrarFormCrear() ? 'Cerrar Registro' : 'Añadir Empleado' }}
                     </button>
                 </div>
 
                 @if (mostrarFormCrear()) {
                     <div
-                        class="bg-zinc-950/50 border border-white/5 p-6 rounded-2xl mb-10 animate-in slide-in-from-top duration-300">
-                        <h4 class="text-sm font-black uppercase tracking-widest text-zinc-500 mb-6 flex items-center gap-2">
+                        class="bg-gray-50 border border-gray-100 p-6 rounded-2xl mb-10 animate-in slide-in-from-top duration-300">
+                        <h4 class="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-6 flex items-center gap-2">
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                class="text-indigo-500">
+                                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                                class="text-[#00B8D4]">
                                 <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
                                 <circle cx="12" cy="7" r="4" />
                             </svg>
@@ -177,55 +147,49 @@
                         </h4>
                         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                             <div class="space-y-1">
-                                <label class="text-[10px] text-zinc-500 uppercase font-black px-1">Nombre</label>
+                                <label class="text-[10px] text-gray-400 uppercase font-black px-1">Nombre</label>
                                 <input #n (input)="cambiarNuevoUsuario('nombre', n.value)" type="text"
                                     placeholder="Ej: Juan"
-                                    class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white focus:border-indigo-600 outline-none transition-all">
+                                    class="w-full bg-white border border-gray-100 rounded-xl px-4 py-3 text-xs text-gray-700 focus:border-[#00B8D4] outline-none transition-all font-bold">
                             </div>
                             <div class="space-y-1">
-                                <label class="text-[10px] text-zinc-500 uppercase font-black px-1">1º Apellido</label>
+                                <label class="text-[10px] text-gray-400 uppercase font-black px-1">1º Apellido</label>
                                 <input #a1 (input)="cambiarNuevoUsuario('apellido1', a1.value)" type="text"
                                     placeholder="Ej: Pérez"
-                                    class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white focus:border-indigo-600 outline-none transition-all">
+                                    class="w-full bg-white border border-gray-100 rounded-xl px-4 py-3 text-xs text-gray-700 focus:border-[#00B8D4] outline-none transition-all font-bold">
                             </div>
                             <div class="space-y-1">
-                                <label class="text-[10px] text-zinc-500 uppercase font-black px-1">2º Apellido</label>
+                                <label class="text-[10px] text-gray-400 uppercase font-black px-1">2º Apellido</label>
                                 <input #a2 (input)="cambiarNuevoUsuario('apellido2', a2.value)" type="text"
                                     placeholder="Ej: García"
-                                    class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white focus:border-indigo-600 outline-none transition-all">
+                                    class="w-full bg-white border border-gray-100 rounded-xl px-4 py-3 text-xs text-gray-700 focus:border-[#00B8D4] outline-none transition-all font-bold">
                             </div>
                             <div class="space-y-1">
-                                <label class="text-[10px] text-zinc-500 uppercase font-black px-1">Puesto</label>
+                                <label class="text-[10px] text-gray-400 uppercase font-black px-1">Puesto</label>
                                 <input #ps (input)="cambiarNuevoUsuario('puesto', ps.value)" type="text"
                                     placeholder="Desarrollador"
-                                    class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white focus:border-indigo-600 outline-none transition-all">
-                            </div>
-                            <div class="space-y-1">
-                                <label class="text-[10px] text-zinc-500 uppercase font-black px-1">Horas Semanales</label>
-                                <input #hs (input)="cambiarNuevoUsuario('horasSemanales', hs.value)" type="number"
-                                    placeholder="40"
-                                    class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white focus:border-indigo-600 outline-none transition-all">
+                                    class="w-full bg-white border border-gray-100 rounded-xl px-4 py-3 text-xs text-gray-700 focus:border-[#00B8D4] outline-none transition-all font-bold">
                             </div>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                             <div class="space-y-1">
-                                <label class="text-[10px] text-zinc-500 uppercase font-black px-1">Email Corporativo</label>
+                                <label class="text-[10px] text-gray-400 uppercase font-black px-1">Email Corporativo</label>
                                 <input #e (input)="cambiarNuevoUsuario('email', e.value)" type="email"
                                     placeholder="usuario@empresa.com"
-                                    class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white focus:border-indigo-600 outline-none">
+                                    class="w-full bg-white border border-gray-100 rounded-xl px-4 py-3 text-xs text-gray-700 focus:border-[#00B8D4] outline-none font-bold">
                             </div>
                             <div class="space-y-1">
-                                <label class="text-[10px] text-zinc-500 uppercase font-black px-1">Contraseña
+                                <label class="text-[10px] text-gray-400 uppercase font-black px-1">Contraseña
                                     Inicial</label>
                                 <input #p (input)="cambiarNuevoUsuario('password', p.value)" type="password"
                                     placeholder="••••••••"
-                                    class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white focus:border-indigo-600 outline-none">
+                                    class="w-full bg-white border border-gray-100 rounded-xl px-4 py-3 text-xs text-gray-700 focus:border-[#00B8D4] outline-none font-bold">
                             </div>
                         </div>
                         <div class="flex justify-end mt-6">
                             <button (click)="crearUsuario()" [disabled]="cargando()"
-                                class="bg-indigo-600 hover:bg-white hover:text-indigo-600 text-white font-black px-8 py-3 rounded-xl text-xs uppercase transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+                                class="bg-[#00B8D4] hover:bg-[#00ACC1] text-white font-black px-8 py-3 rounded-xl text-xs uppercase transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-teal-500/20">
                                 {{ cargando() ? 'Creando...' : 'Guardar Empleado' }}
                             </button>
                         </div>
@@ -236,55 +200,55 @@
                     <table class="w-full text-left">
                         <thead>
                             <tr
-                                class="text-zinc-500 text-[10px] uppercase tracking-[0.4em] font-black border-b border-zinc-800/50">
+                                class="text-gray-300 text-[10px] uppercase tracking-[0.4em] font-black border-b border-gray-50">
                                 <th class="pb-6">Empleado</th>
                                 <th class="pb-6">Puesto</th>
                                 <th class="pb-6">Identidad</th>
                                 <th class="pb-6">Estado</th>
-                                <th class="pb-6 text-right">Controles</th>
+                                <th class="pb-6 text-right pr-8">Controles</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-zinc-800/30">
+                        <tbody class="divide-y divide-gray-50">
                             @for (user of empleadosFiltrados(); track user.id) {
-                            <tr class="group hover:bg-white/[0.02] transition-all cursor-pointer"
-                                [class.bg-indigo-600/5]="usuarioSeleccionado()?.id === user.id"
+                            <tr class="group hover:bg-gray-50 transition-all cursor-pointer"
+                                [class.bg-teal-50]="usuarioSeleccionado()?.id === user.id"
                                 (click)="verHistorial(user)">
-                                <td class="py-6">
+                                <td class="py-6 pl-2">
                                     <div class="flex items-center gap-4">
                                         <div
-                                            class="h-12 w-12 rounded-2xl bg-zinc-800 border border-zinc-700/50 flex items-center justify-center font-black text-xs text-zinc-500 group-hover:scale-110 group-hover:bg-indigo-600 group-hover:text-white transition-all">
+                                            class="h-12 w-12 rounded-2xl bg-gray-50 border border-gray-100 flex items-center justify-center font-black text-xs text-gray-400 group-hover:scale-110 group-hover:bg-[#00B8D4] group-hover:text-white transition-all shadow-sm">
                                             {{ user.nombre.charAt(0) }}
                                         </div>
                                         <div>
-                                            <p class="text-sm font-black text-white uppercase tracking-tight">
+                                            <p class="text-sm font-black text-gray-800 uppercase tracking-tight">
                                                 {{ user.nombre }} {{ user.apellido1 }} {{ user.apellido2 }}
                                             </p>
-                                            <p class="text-xs text-zinc-500 font-medium">{{ user.email }}</p>
+                                            <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">{{ user.email }}</p>
                                         </div>
                                     </div>
                                 </td>
                                 <td class="py-6">
-                                    <p class="text-xs font-bold text-zinc-400 uppercase tracking-wider">
+                                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest">
                                         {{ user.puesto || 'Sin puesto' }}
                                     </p>
                                 </td>
                                 <td class="py-6">
                                     <span
-                                        class="text-[10px] font-black uppercase text-zinc-500 border border-zinc-800 px-3 py-1.5 rounded-full bg-black/40">
+                                        class="text-[9px] font-black uppercase text-gray-400 border border-gray-100 px-3 py-1.5 rounded-full bg-gray-50 tracking-widest">
                                         {{ user.rol }}
                                     </span>
                                 </td>
                                 <td class="py-6">
                                     <button (click)="$event.stopPropagation();"
-                                        [class]="user.activo ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/30' : 'bg-red-500/10 text-red-500 border-red-500/30'"
-                                        class="text-[10px] font-black uppercase px-4 py-2 rounded-xl border transition-all hover:scale-105 active:scale-95">
+                                        [class]="user.activo ? 'bg-emerald-50 text-emerald-500 border-emerald-100' : 'bg-red-50 text-red-500 border-red-100'"
+                                        class="text-[9px] font-black uppercase px-4 py-2 rounded-xl border transition-all hover:scale-105 active:scale-95">
                                         {{ user.activo ? 'ACTIVO' : 'SUSPENDIDO' }}
                                     </button>
                                 </td>
-                                <td class="py-6 text-right">
+                                <td class="py-6 text-right pr-8">
                                     <div class="flex justify-end gap-3 px-2">
                                         <button (click)="$event.stopPropagation(); verHistorial(user)"
-                                            class="h-10 w-10 flex items-center justify-center rounded-xl bg-zinc-950 border border-zinc-800 hover:border-indigo-500 text-zinc-500 hover:text-indigo-400 transition-all shadow-sm">
+                                            class="h-10 w-10 flex items-center justify-center rounded-xl bg-white border border-gray-100 hover:border-[#00B8D4] text-gray-300 hover:text-[#00B8D4] transition-all shadow-sm">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                                 stroke-linecap="round" stroke-linejoin="round"
@@ -294,7 +258,7 @@
                                             </svg>
                                         </button>
                                         <button (click)="$event.stopPropagation(); abrirGestionHorario(user)"
-                                            class="h-10 w-10 flex items-center justify-center rounded-xl bg-zinc-950 border border-zinc-800 hover:border-emerald-500 text-zinc-500 hover:text-emerald-400 transition-all shadow-sm"
+                                            class="h-10 w-10 flex items-center justify-center rounded-xl bg-white border border-gray-100 hover:border-emerald-500 text-gray-300 hover:text-emerald-500 transition-all shadow-sm"
                                             title="Gestionar Jornada">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -303,7 +267,7 @@
                                                 <rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg>
                                         </button>
                                         <button (click)="$event.stopPropagation(); abrirEdicion(user)"
-                                            class="h-10 w-10 flex items-center justify-center rounded-xl bg-zinc-950 border border-zinc-800 hover:border-blue-500 text-zinc-500 hover:text-blue-400 transition-all shadow-sm"
+                                            class="h-10 w-10 flex items-center justify-center rounded-xl bg-white border border-gray-100 hover:border-blue-500 text-gray-300 hover:text-blue-500 transition-all shadow-sm"
                                             title="Editar Perfil">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -314,7 +278,7 @@
                                             </svg>
                                         </button>
                                         <button (click)="$event.stopPropagation(); borrarUsuario(user.id)"
-                                            class="h-10 w-10 flex items-center justify-center rounded-xl bg-zinc-950 border border-zinc-800 hover:border-red-500 text-zinc-500 hover:text-red-500 transition-all shadow-sm">
+                                            class="h-10 w-10 flex items-center justify-center rounded-xl bg-white border border-gray-100 hover:border-red-500 text-gray-300 hover:text-red-500 transition-all shadow-sm">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                                 stroke-linecap="round" stroke-linejoin="round"
@@ -338,12 +302,12 @@
             <!-- EDIT MODAL -->
             @if (usuarioAEditar(); as activeUser) {
             <div
-                class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-300">
+                class="fixed inset-0 bg-black/20 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-300">
                 <div
-                    class="bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-[2.5rem] p-8 shadow-2xl shadow-blue-500/10">
-                    <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-xl font-black text-white italic">Modificar Perfil</h3>
-                        <button (click)="cerrarEdicion()" class="text-zinc-500 hover:text-white">
+                    class="bg-white border border-gray-100 w-full max-w-md rounded-[2.5rem] p-8 shadow-2xl shadow-blue-900/10 animate-in zoom-in-95 duration-300">
+                    <div class="flex justify-between items-center mb-8">
+                        <h3 class="text-sm font-black text-gray-800 uppercase tracking-widest italic">Modificar Perfil</h3>
+                        <button (click)="cerrarEdicion()" class="text-gray-300 hover:text-gray-800 transition-colors">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
                                 stroke-linejoin="round">
@@ -356,51 +320,51 @@
                     <div class="space-y-4">
                         <div class="grid grid-cols-1 gap-4">
                             <div class="space-y-1">
-                                <label class="text-[10px] text-zinc-500 uppercase font-black px-1">Nombre</label>
+                                <label class="text-[10px] text-gray-400 uppercase font-black px-1">Nombre</label>
                                 <input [(ngModel)]="activeUser.nombre" type="text"
-                                    class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white focus:border-blue-500 outline-none transition-all">
+                                    class="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-sm text-gray-700 focus:border-[#00B8D4] outline-none transition-all font-bold">
                             </div>
                         </div>
                         <div class="grid grid-cols-2 gap-4">
                             <div class="space-y-1">
-                                <label class="text-[10px] text-zinc-500 uppercase font-black px-1">1º Apellido</label>
+                                <label class="text-[10px] text-gray-400 uppercase font-black px-1">1º Apellido</label>
                                 <input [(ngModel)]="activeUser.apellido1" type="text"
-                                    class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white focus:border-blue-500 outline-none transition-all">
+                                    class="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-sm text-gray-700 focus:border-[#00B8D4] outline-none transition-all font-bold">
                             </div>
                             <div class="space-y-1">
-                                <label class="text-[10px] text-zinc-500 uppercase font-black px-1">2º Apellido</label>
+                                <label class="text-[10px] text-gray-400 uppercase font-black px-1">2º Apellido</label>
                                 <input [(ngModel)]="activeUser.apellido2" type="text"
-                                    class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white focus:border-blue-500 outline-none transition-all">
+                                    class="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-sm text-gray-700 focus:border-[#00B8D4] outline-none transition-all font-bold">
                             </div>
                         </div>
                         <div class="space-y-1">
-                            <label class="text-[10px] text-zinc-500 uppercase font-black px-1">Puesto</label>
+                            <label class="text-[10px] text-gray-400 uppercase font-black px-1">Puesto</label>
                             <input [(ngModel)]="activeUser.puesto" type="text"
-                                class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white focus:border-blue-500 outline-none transition-all">
+                                class="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-sm text-gray-700 focus:border-[#00B8D4] outline-none transition-all font-bold">
                         </div>
                         <div class="space-y-1">
-                            <label class="text-[10px] text-zinc-500 uppercase font-black px-1">Horas Semanales</label>
+                            <label class="text-[10px] text-gray-400 uppercase font-black px-1">Horas Semanales</label>
                             <input [(ngModel)]="activeUser.horasSemanales" type="number"
-                                class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white focus:border-blue-500 outline-none transition-all">
+                                class="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-sm text-gray-700 focus:border-[#00B8D4] outline-none transition-all font-bold">
                         </div>
                         <div class="space-y-1">
-                            <label class="text-[10px] text-zinc-500 uppercase font-black px-1">Correo</label>
+                            <label class="text-[10px] text-gray-400 uppercase font-black px-1">Correo</label>
                             <input [(ngModel)]="activeUser.email" type="email"
-                                class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white focus:border-blue-500 outline-none transition-all">
+                                class="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-sm text-gray-700 focus:border-[#00B8D4] outline-none transition-all font-bold">
                         </div>
                         <div class="grid grid-cols-2 gap-4">
                             <div class="space-y-1">
-                                <label class="text-[10px] text-zinc-500 uppercase font-black px-1">Rol</label>
+                                <label class="text-[10px] text-gray-400 uppercase font-black px-1">Rol</label>
                                 <select [(ngModel)]="activeUser.rol"
-                                    class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white focus:border-blue-500 outline-none transition-all appearance-none cursor-pointer">
+                                    class="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-sm text-gray-700 focus:border-[#00B8D4] outline-none transition-all appearance-none cursor-pointer font-bold">
                                     <option value="Trabajador">Trabajador</option>
                                     <option value="Administrador">Administrador</option>
                                 </select>
                             </div>
                             <div class="space-y-1">
-                                <label class="text-[10px] text-zinc-500 uppercase font-black px-1">Estado</label>
+                                <label class="text-[10px] text-gray-400 uppercase font-black px-1">Estado</label>
                                 <select [(ngModel)]="activeUser.activo"
-                                    class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white focus:border-blue-500 outline-none transition-all appearance-none cursor-pointer">
+                                    class="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-sm text-gray-700 focus:border-[#00B8D4] outline-none transition-all appearance-none cursor-pointer font-bold">
                                     <option [ngValue]="true">Activo</option>
                                     <option [ngValue]="false">Suspendido</option>
                                 </select>
@@ -408,12 +372,12 @@
                         </div>
                     </div>
 
-                    <div class="mt-10 flex gap-3">
+                    <div class="mt-10 flex gap-4">
                         <button (click)="guardarEdicion()"
-                            class="flex-1 bg-blue-600 hover:bg-blue-500 text-white font-black py-3 rounded-xl text-xs uppercase transition-all shadow-lg shadow-blue-600/20">Guardar
+                            class="flex-1 bg-[#00B8D4] hover:bg-[#00ACC1] text-white font-black py-4 rounded-xl text-xs uppercase transition-all shadow-lg shadow-teal-500/20">Guardar
                             Cambios</button>
                         <button (click)="cerrarEdicion()"
-                            class="flex-1 bg-zinc-800 hover:bg-zinc-700 text-zinc-400 font-black py-3 rounded-xl text-xs uppercase transition-all">Cancelar</button>
+                            class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-500 font-black py-4 rounded-xl text-xs uppercase transition-all">Cancelar</button>
                     </div>
                 </div>
             </div>
@@ -422,17 +386,17 @@
             <!-- DRILL-DOWN: Individual Logs Section -->
             @if (usuarioSeleccionado()) {
             <div
-                class="bg-zinc-950 border-2 border-indigo-600/30 rounded-[2.5rem] p-8 animate-in slide-in-from-right duration-500 h-fit sticky top-10 shadow-2xl shadow-indigo-600/10">
-                <div class="flex justify-between items-start mb-8 border-b border-zinc-900 pb-6">
+                class="bg-white border border-gray-100 rounded-[2.5rem] p-8 animate-in slide-in-from-right duration-500 h-fit sticky top-10 shadow-2xl shadow-blue-900/10">
+                <div class="flex justify-between items-start mb-8 border-b border-gray-50 pb-6">
                     <div>
                         <span
-                            class="text-[10px] font-black text-indigo-500 uppercase tracking-widest block mb-2">Expediente
+                            class="text-[10px] font-black text-[#00B8D4] uppercase tracking-widest block mb-2">Expediente
                             de Empleado</span>
-                        <h4 class="text-2xl font-black text-white italic truncate max-w-[200px]">{{
+                        <h4 class="text-xl font-black text-gray-800 uppercase truncate max-w-[200px]">{{
                             usuarioSeleccionado()?.nombre }}</h4>
                     </div>
                     <button (click)="usuarioSeleccionado.set(null)"
-                        class="h-10 w-10 flex items-center justify-center rounded-full bg-zinc-900 text-zinc-500 hover:text-white transition-all active:rotate-90">
+                        class="h-10 w-10 flex items-center justify-center rounded-full bg-gray-50 text-gray-300 hover:text-gray-800 transition-all active:rotate-90">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
                             class="lucide lucide-x">
@@ -444,16 +408,16 @@
 
                 <!-- Premium Calendar Filter -->
                 <div class="space-y-4 mb-8">
-                    <div class="bg-zinc-900/40 border border-zinc-800 rounded-3xl p-5">
+                    <div class="bg-gray-50 border border-gray-100 rounded-3xl p-5">
                         <div class="flex justify-between items-center mb-6 px-2">
-                            <h5 class="text-xs font-black uppercase tracking-widest text-indigo-500">
+                            <h5 class="text-[10px] font-black uppercase tracking-widest text-[#00B8D4]">
                                 {{ mesCalendario() | date:'MMMM yyyy' | titlecase }}
                             </h5>
                             <div class="flex gap-2">
-                                <button (click)="cambiarMes(-1)" class="h-8 w-8 rounded-xl bg-black border border-zinc-800 flex items-center justify-center text-zinc-500 hover:text-white transition-all">
+                                <button (click)="cambiarMes(-1)" class="h-8 w-8 rounded-xl bg-white border border-gray-100 flex items-center justify-center text-gray-300 hover:text-[#00B8D4] transition-all">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
                                 </button>
-                                <button (click)="cambiarMes(1)" class="h-8 w-8 rounded-xl bg-black border border-zinc-800 flex items-center justify-center text-zinc-500 hover:text-white transition-all">
+                                <button (click)="cambiarMes(1)" class="h-8 w-8 rounded-xl bg-white border border-gray-100 flex items-center justify-center text-gray-300 hover:text-[#00B8D4] transition-all">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
                                 </button>
                             </div>
@@ -461,7 +425,7 @@
 
                         <div class="grid grid-cols-7 gap-1 mb-2">
                             @for (dia of ['L','M','X','J','V','S','D']; track $index) {
-                                <div class="text-[9px] font-black text-zinc-600 text-center uppercase">{{ dia }}</div>
+                                <div class="text-[9px] font-black text-gray-300 text-center uppercase">{{ dia }}</div>
                             }
                         </div>
 
@@ -470,26 +434,26 @@
                                 <button 
                                     (click)="seleccionarDia(dia.fecha)"
                                     [class.opacity-20]="!dia.enMesActual"
-                                    [class.bg-indigo-600]="estaEnRango(dia.fecha)"
+                                    [class.bg-[#00B8D4]]="estaEnRango(dia.fecha)"
                                     [class.text-white]="estaEnRango(dia.fecha)"
                                     [class.font-black]="estaEnRango(dia.fecha)"
-                                    [class.hover:bg-zinc-800]="!estaEnRango(dia.fecha)"
+                                    [class.hover:bg-gray-100]="!estaEnRango(dia.fecha)"
                                     class="h-9 w-full rounded-lg text-[10px] flex flex-col items-center justify-center transition-all relative group"
                                 >
                                     {{ dia.fecha.getDate() }}
                                     @if (tieneRegistros(dia.fecha)) {
                                         <span class="absolute bottom-1 h-1 w-1 rounded-full" 
-                                              [class]="estaEnRango(dia.fecha) ? 'bg-white' : 'bg-indigo-500'"></span>
+                                              [class]="estaEnRango(dia.fecha) ? 'bg-white' : 'bg-[#00B8D4]'"></span>
                                     }
                                 </button>
                             }
                         </div>
                         
-                        <div class="mt-6 pt-4 border-t border-zinc-800/50 flex justify-between items-center text-[10px] font-black uppercase text-zinc-500">
+                        <div class="mt-6 pt-4 border-t border-gray-100 flex justify-between items-center text-[10px] font-black uppercase text-gray-300">
                              <button (click)="tipoFiltro.set('todos'); rangoInicio.set(null); rangoFin.set(null)" 
-                                     class="hover:text-indigo-400 transition-colors">Limpiar Selección</button>
+                                     class="hover:text-[#00B8D4] transition-colors">Limpiar Selección</button>
                              <div class="flex gap-2">
-                                 <span class="flex items-center gap-1"><span class="h-1.5 w-1.5 rounded-full bg-indigo-500"></span> Jornada</span>
+                                 <span class="flex items-center gap-1"><span class="h-1.5 w-1.5 rounded-full bg-[#00B8D4]"></span> Jornada</span>
                              </div>
                         </div>
                     </div>
@@ -497,25 +461,25 @@
 
                 <!-- Goal Summary Card -->
                 @if (tipoFiltro() !== 'todos' && resumenPeriodo(); as res) {
-                <div class="mb-8 p-6 bg-zinc-900/60 border border-zinc-800 rounded-3xl relative overflow-hidden group">
+                <div class="mb-8 p-6 bg-gray-50 border border-gray-100 rounded-3xl relative overflow-hidden group">
                     <div class="flex justify-between items-end mb-4">
                         <div>
-                            <p class="text-[10px] font-black text-zinc-500 uppercase tracking-widest mb-1">Actividad en Selección</p>
-                            <h5 class="text-2xl font-black text-white italic">
-                                {{ formatearTiempo(res.total) }} <span class="text-xs text-zinc-600 not-italic">/ {{ res.objetivo.toFixed(1) }}h</span>
+                            <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Actividad en Selección</p>
+                            <h5 class="text-xl font-black text-gray-800 uppercase tracking-tight">
+                                {{ formatearTiempo(res.total) }} <span class="text-[10px] text-gray-400 not-italic font-bold">/ {{ res.objetivo.toFixed(1) }}H</span>
                             </h5>
                         </div>
-                        <div [class]="res.cumplido ? 'text-emerald-500' : 'text-orange-500'" class="text-[10px] font-black uppercase flex items-center gap-1.5">
+                        <div [class]="res.cumplido ? 'text-emerald-500' : 'text-orange-500'" class="text-[9px] font-black uppercase flex items-center gap-1.5">
                             <span class="h-1.5 w-1.5 rounded-full bg-current animate-pulse"></span>
                             {{ res.cumplido ? 'Objetivo Cumplido' : 'En Progreso' }}
                         </div>
                     </div>
                     
                     <!-- Progress Bar -->
-                    <div class="h-2 w-full bg-zinc-800 rounded-full overflow-hidden">
+                    <div class="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
                         <div [style.width.%]="res.porcentaje" 
-                             [class]="res.cumplido ? 'bg-emerald-500' : 'bg-indigo-500'"
-                             class="h-full transition-all duration-1000 ease-out"></div>
+                             [class]="res.cumplido ? 'bg-emerald-500' : 'bg-[#00B8D4]'"
+                             class="h-full transition-all duration-1000 ease-out shadow-[0_0_10px_rgba(0,184,212,0.3)]"></div>
                     </div>
                 </div>
                 }
@@ -523,21 +487,21 @@
                 <div class="space-y-4 max-h-[600px] overflow-y-auto pr-3 custom-scrollbar">
                     @for (reg of registrosFiltrados(); track reg.idFichajes) {
                     <div
-                        class="p-6 bg-zinc-900/40 border border-zinc-800/80 rounded-3xl group hover:border-indigo-500/40 transition-all cursor-default relative overflow-hidden">
-                        <!-- Glow decoration -->
-                        <div class="absolute -right-10 -top-10 h-20 w-20 bg-indigo-500/5 blur-2xl rounded-full"></div>
+                        class="p-6 bg-white border border-gray-100 rounded-3xl group hover:border-[#00B8D4]/40 transition-all cursor-default relative overflow-hidden shadow-sm">
+                        <!-- Decoration -->
+                        <div class="absolute -right-10 -top-10 h-20 w-20 bg-teal-500/5 blur-2xl rounded-full"></div>
 
                         <div class="flex justify-between items-center mb-4">
-                            <span class="text-xs font-black text-zinc-500 uppercase tracking-widest">{{ reg.fecha |
+                            <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest">{{ reg.fecha |
                                 date:'dd MMM yyyy' }}</span>
                             <div class="flex items-center gap-2">
                                 @if (reg.estado === 'pendiente_revision') {
-                                    <span class="px-3 py-1 rounded-lg bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 text-[10px] font-black uppercase tracking-tighter animate-pulse">
+                                    <span class="px-3 py-1 rounded-lg bg-[#00B8D4]/10 text-[#00B8D4] border border-[#00B8D4]/30 text-[9px] font-black uppercase tracking-tighter animate-pulse">
                                         Pendiente de Revisión
                                     </span>
                                 }
-                                <div class="px-3 py-1 rounded-lg bg-black text-[10px] font-black uppercase tracking-tighter"
-                                    [class]="reg.horaSalida ? 'text-emerald-500 shadow-sm shadow-emerald-500/10' : 'text-orange-500 shadow-sm shadow-orange-500/10 animate-pulse'">
+                                <div class="px-3 py-1 rounded-lg bg-gray-50 border border-gray-100 text-[9px] font-black uppercase tracking-tighter"
+                                    [class]="reg.horaSalida ? 'text-emerald-500' : 'text-orange-500 animate-pulse'">
                                     {{ reg.horaSalida ? 'Completado' : 'Sesión Activa' }}
                                 </div>
                             </div>
@@ -546,32 +510,34 @@
                         <div class="flex flex-col gap-4">
                             <!-- Superior: Tiempos y Comentario -->
                             <div class="flex-1">
-                                <div class="flex items-center gap-2 mb-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-                                        stroke-linejoin="round" class="text-zinc-600">
-                                        <circle cx="12" cy="12" r="10" />
-                                        <polyline points="12 6 12 12 16 14" />
-                                    </svg>
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div class="h-8 w-8 rounded-lg bg-gray-50 flex items-center justify-center text-gray-400">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                                            stroke-linejoin="round">
+                                            <circle cx="12" cy="12" r="10" />
+                                            <polyline points="12 6 12 12 16 14" />
+                                        </svg>
+                                    </div>
                                     @if (reg.estado === 'pendiente_revision') {
                                         <div class="flex flex-col gap-1">
-                                            <span class="text-[9px] font-black text-zinc-600 uppercase tracking-tighter">Propuesta de cambio:</span>
+                                            <span class="text-[9px] font-black text-gray-400 uppercase tracking-tighter">Propuesta de cambio:</span>
                                             <div class="flex flex-col font-mono leading-tight">
-                                                <span class="text-xs text-zinc-500 line-through opacity-40">{{ reg.horaEntrada }} → {{ reg.horaSalida || '??:??' }}</span>
-                                                <span class="text-base font-black text-indigo-400">{{ reg.horaEntradaPropuesta }} → {{ reg.horaSalidaPropuesta || '??:??' }}</span>
+                                                <span class="text-xs text-gray-300 line-through opacity-60">{{ reg.horaEntrada }} → {{ reg.horaSalida || '??:??' }}</span>
+                                                <span class="text-lg font-black text-[#00B8D4]">{{ reg.horaEntradaPropuesta }} → {{ reg.horaSalidaPropuesta || '??:??' }}</span>
                                             </div>
                                         </div>
                                     } @else {
-                                        <p class="text-lg font-black text-white tracking-widest font-mono">{{
-                                            reg.horaEntrada }} <span class="text-zinc-800">→</span> {{ reg.horaSalida ||
+                                        <p class="text-lg font-black text-gray-800 tracking-widest font-mono">{{
+                                            reg.horaEntrada }} <span class="text-gray-200">→</span> {{ reg.horaSalida ||
                                             'PR' }}</p>
                                     }
                                 </div>
                                 
                                 @if (reg.comentario) {
                                 <div class="relative mt-4 mb-2">
-                                    <div class="absolute left-0 top-0 bottom-0 w-1 bg-indigo-500 rounded-full shadow-[0_0_10px_rgba(79,70,229,0.5)]"></div>
-                                    <p class="text-sm text-indigo-100 italic bg-zinc-900/80 px-5 py-3 rounded-r-2xl border border-zinc-800 leading-relaxed">
+                                    <div class="absolute left-0 top-0 bottom-0 w-1 bg-[#00B8D4] rounded-full shadow-[0_0_10px_rgba(0,184,212,0.5)]"></div>
+                                    <p class="text-[11px] text-gray-600 italic bg-gray-50 px-5 py-3 rounded-r-2xl border border-gray-100 leading-relaxed font-bold">
                                         "{{ reg.comentario }}"
                                     </p>
                                 </div>
@@ -581,10 +547,10 @@
                                 <div class="mt-4 flex flex-wrap gap-4 animate-in fade-in slide-in-from-left duration-500">
                                     @if (reg.latitudEntrada && reg.longitudEntrada) {
                                     <div class="flex flex-col gap-1">
-                                        <span class="text-[9px] font-black text-zinc-600 uppercase tracking-tighter px-1">Ubicación Entrada</span>
+                                        <span class="text-[9px] font-black text-gray-400 uppercase tracking-tighter px-1">Ubicación Entrada</span>
                                         <a [href]="'https://www.google.com/maps?q=' + reg.latitudEntrada + ',' + reg.longitudEntrada" 
                                            target="_blank" 
-                                           class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 hover:bg-indigo-500 hover:text-white transition-all text-[10px] font-black uppercase group/loc">
+                                           class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-teal-50 text-[#00B8D4] border border-teal-100 hover:bg-[#00B8D4] hover:text-white transition-all text-[9px] font-black uppercase group/loc">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover/loc:scale-110 transition-transform"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
                                             Ver Mapa
                                         </a>
@@ -592,10 +558,10 @@
                                     }
                                     @if (reg.latitudSalida && reg.longitudSalida) {
                                     <div class="flex flex-col gap-1">
-                                        <span class="text-[9px] font-black text-zinc-600 uppercase tracking-tighter px-1">Ubicación Salida</span>
+                                        <span class="text-[9px] font-black text-gray-400 uppercase tracking-tighter px-1">Ubicación Salida</span>
                                         <a [href]="'https://www.google.com/maps?q=' + reg.latitudSalida + ',' + reg.longitudSalida" 
                                            target="_blank" 
-                                           class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500 hover:text-white transition-all text-[10px] font-black uppercase group/loc">
+                                           class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-500 border border-emerald-100 hover:bg-emerald-500 hover:text-white transition-all text-[9px] font-black uppercase group/loc">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover/loc:scale-110 transition-transform"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
                                             Ver Mapa
                                         </a>
@@ -605,36 +571,36 @@
                             </div>
 
                             <!-- Inferior: Acciones y Total -->
-                            <div class="flex justify-between items-end pt-2 border-t border-zinc-800/50">
+                            <div class="flex justify-between items-end pt-2 border-t border-gray-50">
                                 <div class="flex-1">
                                     @if (reg.estado === 'pendiente_revision') {
                                         <div class="flex gap-2">
                                             <button (click)="$event.stopPropagation(); resolverCorreccionDirecta(reg, false)" 
-                                                class="px-3 py-1.5 rounded-lg bg-red-500/10 text-red-500 border border-red-500/20 hover:bg-red-500 hover:text-white transition-all text-[10px] font-black uppercase">
+                                                class="px-3 py-1.5 rounded-lg bg-red-50 text-red-500 border border-red-100 hover:bg-red-500 hover:text-white transition-all text-[9px] font-black uppercase">
                                                 Rechazar
                                             </button>
                                             <button (click)="$event.stopPropagation(); resolverCorreccionDirecta(reg, true)" 
-                                                class="px-3 py-1.5 rounded-lg bg-emerald-500 text-black hover:bg-emerald-400 transition-all text-[10px] font-black uppercase">
+                                                class="px-3 py-1.5 rounded-lg bg-[#00B8D4] text-white hover:bg-[#00ACC1] transition-all text-[9px] font-black uppercase shadow-lg shadow-teal-500/20">
                                                 Aprobar
                                             </button>
                                         </div>
                                     }
                                 </div>
                                 <div class="text-right">
-                                    <p class="text-xs font-black text-zinc-500 uppercase mb-0.5 tracking-tighter">Total</p>
-                                    <p class="text-xl font-black text-indigo-500">{{ (reg.horasTrabajadas !== null && reg.horasTrabajadas !== undefined) ?
-                                        reg.horasTrabajadas.toFixed(2) + 'h' : '--' }}</p>
+                                    <p class="text-[10px] font-black text-gray-300 uppercase mb-0.5 tracking-tighter">Total</p>
+                                    <p class="text-xl font-black text-[#00B8D4]">{{ (reg.horasTrabajadas !== null && reg.horasTrabajadas !== undefined) ?
+                                        reg.horasTrabajadas.toFixed(2) + 'H' : '--' }}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     } @empty {
-                    <div class="text-center py-20 bg-zinc-900/20 border border-dashed border-zinc-800 rounded-[2rem]">
+                    <div class="text-center py-20 bg-gray-50 border border-dashed border-gray-100 rounded-[2rem]">
                         <div
-                            class="h-16 w-16 bg-zinc-950 rounded-2xl flex items-center justify-center text-zinc-800 mx-auto mb-4 border border-zinc-900 shadow-inner">
+                            class="h-16 w-16 bg-white rounded-2xl flex items-center justify-center text-gray-200 mx-auto mb-4 border border-gray-50 shadow-sm">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round" class="opacity-20">
+                                stroke-linejoin="round" class="opacity-40">
                                 <path d="M8 2v4" />
                                 <path d="M16 2v4" />
                                 <rect width="18" height="18" x="3" y="4" rx="2" />
@@ -643,17 +609,17 @@
                                 <path d="m10 14 4 4" />
                             </svg>
                         </div>
-                        <p class="text-sm font-bold text-zinc-700 uppercase tracking-widest">No hay registros</p>
-                        <p class="text-[10px] text-zinc-800 mt-1">Intenta con otro filtro temporal</p>
+                        <p class="text-[11px] font-black text-gray-400 uppercase tracking-widest">No hay registros</p>
+                        <p class="text-[9px] text-gray-300 mt-1 uppercase font-bold">Intenta con otro filtro temporal</p>
                     </div>
                     }
                 </div>
 
                 <!-- Footer stats -->
                 @if (tipoFiltro() !== 'todos') {
-                <div class="mt-8 p-4 bg-indigo-600 rounded-2xl text-center shadow-lg shadow-indigo-600/20">
-                    <p class="text-[10px] font-black uppercase text-white/60 tracking-widest">Total Acumulado (Seleccionado)</p>
-                    <p class="text-2xl font-black text-white italic">{{ formatearTiempo(resumenPeriodo()?.total) }}</p>
+                <div class="mt-8 p-4 bg-[#00B8D4] rounded-2xl text-center shadow-lg shadow-teal-500/20">
+                    <p class="text-[9px] font-black uppercase text-white/60 tracking-widest">Total Acumulado (Seleccionado)</p>
+                    <p class="text-xl font-black text-white uppercase">{{ formatearTiempo(resumenPeriodo()?.total) }}</p>
                 </div>
                 }
             </div>
@@ -666,58 +632,66 @@
             <!-- SECCIÓN 1: CORRECCIONES DE FICHAJE -->
             <section>
                 <div class="mb-6 flex items-center gap-4">
-                    <div class="h-10 w-10 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-500 border border-amber-500/20">
+                    <div class="h-10 w-10 rounded-xl bg-amber-50 flex items-center justify-center text-amber-500 border border-amber-100">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                     </div>
                     <div>
-                        <h3 class="text-xl font-black text-white">Correcciones de Fichaje</h3>
-                        <p class="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">Errores en entrada/salida</p>
+                        <h3 class="text-sm font-black text-gray-800 uppercase tracking-widest">Correcciones de Fichaje</h3>
+                        <p class="text-[9px] text-gray-400 font-bold uppercase tracking-[0.2em]">Errores en entrada/salida</p>
                     </div>
-                    <span class="ml-auto px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-[10px] font-black text-zinc-400">
+                    <span class="ml-auto px-4 py-1.5 rounded-full bg-amber-50 border border-amber-100 text-[9px] font-black text-amber-500 uppercase">
                         {{ correccionesFichaje().length }} Pendientes
                     </span>
                 </div>
 
                 <div class="grid grid-cols-1 gap-4">
                     @for (reg of correccionesFichaje(); track reg.idFichajes) {
-                    <div class="bg-zinc-900/40 border border-zinc-800/50 rounded-[2rem] p-6 flex flex-col md:flex-row gap-6 items-center group hover:border-amber-500/30 transition-all">
-                        <div class="flex items-center gap-4 min-w-[180px]">
-                            <div class="h-10 w-10 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-500 font-bold border border-amber-500/20 text-xs">
+                    <div class="bg-white border border-gray-100 rounded-[2.5rem] p-4 flex items-center group hover:border-amber-500/30 transition-all shadow-sm">
+                        <!-- User Info -->
+                        <div class="flex items-center gap-4 w-60 shrink-0 pl-4">
+                            <div class="h-12 w-12 rounded-2xl bg-amber-50 flex items-center justify-center text-amber-500 font-black border border-amber-100 text-xs shadow-sm">
                                 {{ reg.usuario.nombre.charAt(0) }}
                             </div>
                             <div>
-                                <p class="font-bold text-white leading-none mb-1 text-sm">{{ reg.usuario.nombre }} {{ reg.usuario.apellido1 }}</p>
-                                <span class="text-[9px] text-zinc-500 uppercase font-black tracking-widest">{{ reg.fecha | date:'dd MMM' }}</span>
+                                <p class="font-black text-gray-800 leading-none mb-1.5 text-sm uppercase tracking-tight">{{ reg.usuario.nombre }} {{ reg.usuario.apellido1 }}</p>
+                                <span class="text-[9px] text-gray-400 uppercase font-black tracking-[0.2em]">{{ reg.fecha | date:'dd MMMM' }}</span>
                             </div>
                         </div>
 
-                        <div class="flex-1 grid grid-cols-2 gap-4 bg-black/40 p-4 rounded-2xl border border-zinc-800/30">
+                        <!-- Data (Times Box) -->
+                        <div class="bg-gray-50/50 border border-gray-100 rounded-2xl px-6 py-4 flex gap-8 shrink-0">
                             <div>
-                                <p class="text-[9px] text-zinc-500 uppercase font-black mb-1">Original</p>
-                                <p class="text-xs font-mono text-zinc-500 line-through">{{ reg.horaEntrada }} → {{ reg.horaSalida || '??:??' }}</p>
+                                <p class="text-[8px] font-black text-gray-400 uppercase tracking-[0.2em] mb-1.5">Original</p>
+                                <p class="text-xs font-mono text-gray-300 line-through tracking-tighter">{{ reg.horaEntrada }} → {{ reg.horaSalida || '??:??' }}</p>
                             </div>
+                            <div class="w-px h-8 bg-gray-200 self-center"></div>
                             <div>
-                                <p class="text-[9px] text-amber-500 uppercase font-black mb-1">Propuesta</p>
-                                <p class="text-sm font-mono font-black text-white">{{ reg.horaEntradaPropuesta }} → {{ reg.horaSalidaPropuesta }}</p>
+                                <p class="text-[8px] font-black text-amber-500 uppercase tracking-[0.2em] mb-1.5">Propuesta</p>
+                                <p class="text-sm font-mono font-black text-gray-800 tracking-tighter">{{ reg.horaEntradaPropuesta }} → {{ reg.horaSalidaPropuesta }}</p>
                             </div>
                         </div>
 
-                        <div class="max-w-xs flex-1 text-[11px] text-zinc-400 italic">
-                            "{{ reg.comentario }}"
+                        <!-- Comment -->
+                        <div class="flex-1 min-w-0 px-10">
+                            <p class="text-[8px] text-gray-300 uppercase font-black tracking-[0.2em] mb-1.5">Comentario del empleado</p>
+                            <p class="text-xs text-gray-500 italic font-bold truncate pr-4" [title]="reg.comentario">
+                                "{{ reg.comentario }}"
+                            </p>
                         </div>
 
-                        <div class="flex gap-2">
-                            <button (click)="resolverCorreccionDirecta(reg, false)" class="h-10 w-10 rounded-xl bg-red-500/10 text-red-500 border border-red-500/20 hover:bg-red-500 hover:text-white transition-all flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                        <!-- Actions -->
+                        <div class="flex gap-2 shrink-0 pr-4">
+                            <button (click)="resolverCorreccionDirecta(reg, false)" class="px-8 h-11 rounded-xl bg-red-50 text-red-500 border border-red-100 hover:bg-red-500 hover:text-white transition-all font-black uppercase text-[10px] tracking-widest shadow-sm">
+                                Rechazar
                             </button>
-                            <button (click)="resolverCorreccionDirecta(reg, true)" class="h-10 px-4 rounded-xl bg-emerald-500 text-black font-black uppercase text-[10px] hover:bg-emerald-400 transition-all">
+                            <button (click)="resolverCorreccionDirecta(reg, true)" class="px-8 h-11 rounded-xl bg-emerald-500 text-white font-black uppercase text-[10px] tracking-widest hover:bg-emerald-600 transition-all shadow-xl shadow-emerald-500/20">
                                 Aprobar
                             </button>
                         </div>
                     </div>
                     } @empty {
-                        <div class="py-10 text-center bg-zinc-900/10 border border-dashed border-zinc-800 rounded-[2rem]">
-                            <p class="text-[10px] font-black text-zinc-700 uppercase">Sin correcciones pendientes</p>
+                        <div class="py-12 text-center bg-gray-50 border border-dashed border-gray-100 rounded-[2rem]">
+                            <p class="text-[10px] font-black text-gray-300 uppercase tracking-widest">Sin correcciones pendientes</p>
                         </div>
                     }
                 </div>
@@ -726,65 +700,74 @@
             <!-- SECCIÓN 2: SOLICITUDES DE AUSENCIA -->
             <section>
                 <div class="mb-6 flex items-center gap-4">
-                    <div class="h-10 w-10 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 border border-indigo-500/20">
+                    <div class="h-10 w-10 rounded-xl bg-[#00B8D4]/10 flex items-center justify-center text-[#00B8D4] border border-[#00B8D4]/20">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></svg>
                     </div>
                     <div>
-                        <h3 class="text-xl font-black text-white">Solicitudes de Ausencia</h3>
-                        <p class="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">Vacaciones, Bajas, etc.</p>
+                        <h3 class="text-sm font-black text-gray-800 uppercase tracking-widest">Solicitudes de Ausencia</h3>
+                        <p class="text-[9px] text-gray-400 font-bold uppercase tracking-[0.2em]">Vacaciones, Bajas, etc.</p>
                     </div>
-                    <span class="ml-auto px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-[10px] font-black text-zinc-400">
-                        {{ solicitudesAusencia().length }} Pendientes
+                    <span class="ml-auto px-4 py-1.5 rounded-full bg-[#00B8D4]/10 border border-[#00B8D4]/20 text-[9px] font-black text-[#00B8D4] uppercase">
+                                            {{ solicitudesAusencia().length }} Pendientes
                     </span>
                 </div>
 
                 <div class="grid grid-cols-1 gap-4">
                     @for (sol of solicitudesAusencia(); track sol.idSolicitud) {
-                    <div class="bg-zinc-900/40 border border-zinc-800/50 rounded-[2rem] p-6 flex flex-col md:flex-row gap-6 items-center group hover:border-indigo-500/30 transition-all">
-                        <div class="flex items-center gap-4 min-w-[180px]">
-                            <div class="h-10 w-10 rounded-full bg-indigo-600/10 flex items-center justify-center text-indigo-400 font-bold border border-indigo-500/20 text-xs">
+                    <div class="bg-white border border-gray-100 rounded-[2.5rem] p-4 flex items-center group hover:border-[#00B8D4]/30 transition-all shadow-sm">
+                        <!-- User Info -->
+                        <div class="flex items-center gap-4 w-60 shrink-0 pl-4">
+                            <div class="h-12 w-12 rounded-2xl bg-[#00B8D4]/10 flex items-center justify-center text-[#00B8D4] font-black border border-[#00B8D4]/20 text-xs shadow-sm">
                                 {{ sol.usuario.nombre.charAt(0) }}
                             </div>
                             <div>
-                                <p class="font-bold text-white leading-none mb-1 text-sm">{{ sol.usuario.nombre }} {{ sol.usuario.apellido1 }}</p>
-                                <span class="text-[9px] text-indigo-400 uppercase font-black tracking-widest">{{ sol.motivo.replace('_', ' ') }}</span>
+                                <p class="font-black text-gray-800 leading-none mb-1.5 text-sm uppercase tracking-tight">{{ sol.usuario.nombre }} {{ sol.usuario.apellido1 }}</p>
+                                <span class="text-[9px] text-[#00B8D4] uppercase font-black tracking-[0.2em]">{{ sol.motivo.replace('_', ' ') }}</span>
                             </div>
                         </div>
 
-                        <div class="flex-1 flex flex-col justify-center">
-                            <p class="text-[9px] text-zinc-500 uppercase font-black mb-1">Periodo Solicitado</p>
-                            <p class="text-sm font-bold text-white">
-                                {{ sol.fechaInicio | date:'dd MMM' }} <span class="text-zinc-600 mx-1">→</span> {{ sol.fechaFin | date:'dd MMM' }}
+                        <!-- Data (Dates) -->
+                        <div class="shrink-0 bg-gray-50/50 border border-gray-100 rounded-2xl px-6 py-3 w-fit">
+                            <p class="text-[8px] text-gray-400 uppercase font-black tracking-[0.2em] mb-1">Periodo Solicitado</p>
+                            <p class="text-[12px] font-black text-gray-800 uppercase tracking-tight font-mono">
+                                {{ sol.fechaInicio | date:'dd MMM' }} <span class="text-gray-200 mx-2">→</span> {{ sol.fechaFin | date:'dd MMM' }}
                             </p>
                         </div>
 
-                        <div class="max-w-xs flex-1 text-[11px] text-zinc-400 italic">
-                            "{{ sol.comentario }}"
+                        <!-- Comment -->
+                        <div class="flex-1 min-w-0 pl-16 pr-10">
+                            <p class="text-[8px] text-gray-300 uppercase font-black tracking-[0.2em] mb-1.5">Motivo / Nota adjunta</p>
+                            <p class="text-xs text-gray-500 italic font-bold truncate pr-4" [title]="sol.comentario">
+                                "{{ sol.comentario }}"
+                            </p>
                         </div>
 
-                        <div class="flex items-center gap-4">
+                        <!-- Actions -->
+                        <div class="flex items-center gap-3 shrink-0 pr-4">
                             @if (sol.archivoUrl) {
-                            <a [href]="sol.archivoUrl" target="_blank" class="flex flex-col items-center gap-1 group/file">
-                                <div class="h-10 w-10 rounded-xl bg-zinc-950 border border-zinc-800 flex items-center justify-center text-zinc-500 group-hover/file:border-indigo-500 group-hover/file:text-indigo-400 transition-all">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14.5 2 14.5 7.5 20 7.5"/></svg>
-                                </div>
-                                <span class="text-[8px] font-black text-zinc-600 uppercase group-hover/file:text-indigo-500">PDF</span>
-                            </a>
+                            <div class="flex items-center gap-6 mr-2 border-r border-gray-100 pr-6">
+                                <a [href]="sol.archivoUrl" target="_blank" class="flex flex-col items-center gap-1 group/file">
+                                    <div class="h-11 w-11 rounded-xl bg-gray-50 border border-gray-100 flex items-center justify-center text-gray-400 group-hover/file:border-[#00B8D4] group-hover/file:text-[#00B8D4] transition-all">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14.5 2 14.5 7.5 20 7.5"/></svg>
+                                    </div>
+                                    <span class="text-[8px] font-black text-gray-400 uppercase group-hover/file:text-[#00B8D4] tracking-widest mt-1">PDF</span>
+                                </a>
+                            </div>
                             }
                             
-                            <div class="flex gap-2">
-                                <button (click)="resolverSolicitud(sol, false)" class="h-10 w-10 rounded-xl bg-red-500/10 text-red-500 border border-red-500/20 hover:bg-red-500 hover:text-white transition-all flex items-center justify-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                            <div class="flex items-center gap-3">
+                                <button (click)="resolverSolicitud(sol, false)" class="px-8 h-11 rounded-xl bg-red-50 text-red-500 border border-red-100 hover:bg-red-500 hover:text-white transition-all font-black uppercase text-[10px] tracking-widest shadow-sm">
+                                    Rechazar
                                 </button>
-                                <button (click)="resolverSolicitud(sol, true)" class="h-10 px-4 rounded-xl bg-emerald-500 text-black font-black uppercase text-[10px] hover:bg-emerald-400 transition-all">
+                                <button (click)="resolverSolicitud(sol, true)" class="px-8 h-11 rounded-xl bg-emerald-500 text-white font-black uppercase text-[10px] tracking-widest hover:bg-emerald-600 transition-all shadow-xl shadow-emerald-500/20">
                                     Aprobar
                                 </button>
                             </div>
                         </div>
                     </div>
                     } @empty {
-                        <div class="py-10 text-center bg-zinc-900/10 border border-dashed border-zinc-800 rounded-[2rem]">
-                            <p class="text-[10px] font-black text-zinc-700 uppercase">Sin solicitudes de ausencia</p>
+                        <div class="py-12 text-center bg-gray-50 border border-dashed border-gray-100 rounded-[2rem]">
+                            <p class="text-[10px] font-black text-gray-300 uppercase tracking-widest">Sin solicitudes de ausencia</p>
                         </div>
                     }
                 </div>
@@ -797,57 +780,57 @@
 <!-- MODAL GESTIÓN DE HORARIOS -->
 @if (mostrarModalHorario()) {
 <div class="fixed inset-0 z-[100] flex items-center justify-center p-4">
-    <div (click)="mostrarModalHorario.set(false)" class="absolute inset-0 bg-black/80 backdrop-blur-sm animate-in fade-in duration-300"></div>
+    <div (click)="mostrarModalHorario.set(false)" class="absolute inset-0 bg-black/20 backdrop-blur-sm animate-in fade-in duration-300"></div>
     
-    <div class="relative w-full max-w-3xl bg-zinc-950 border border-zinc-800 rounded-[2.5rem] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
-        <div class="p-8">
-            <div class="flex justify-between items-start mb-8">
+    <div class="relative w-full max-w-3xl bg-white border border-gray-100 rounded-[2.5rem] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
+        <div class="p-10">
+            <div class="flex justify-between items-start mb-10">
                 <div>
-                    <h3 class="text-2xl font-black text-white">Gestión de Jornada Laboral</h3>
-                    <p class="text-xs text-zinc-500 uppercase tracking-widest font-bold mt-1">
+                    <h3 class="text-sm font-black text-gray-800 uppercase tracking-widest">Gestión de Jornada Laboral</h3>
+                    <p class="text-[10px] text-[#00B8D4] uppercase tracking-widest font-black mt-2">
                         Empleado: {{ usuarioParaHorario()?.nombre }} {{ usuarioParaHorario()?.apellido1 }}
                     </p>
                 </div>
-                <button (click)="mostrarModalHorario.set(false)" class="text-zinc-600 hover:text-white transition-colors">
+                <button (click)="mostrarModalHorario.set(false)" class="text-gray-300 hover:text-gray-800 transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
                 </button>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
                 <!-- FORMULARIO NUEVO HORARIO -->
                 <div class="space-y-6">
-                    <h4 class="text-xs font-black uppercase tracking-[0.2em] text-indigo-500">Asignar Nueva Jornada</h4>
+                    <h4 class="text-[10px] font-black uppercase tracking-[0.2em] text-[#00B8D4]">Asignar Nueva Jornada</h4>
                     
-                    <div class="space-y-4 bg-zinc-900/40 p-6 rounded-3xl border border-zinc-800/50">
+                    <div class="space-y-4 bg-gray-50 p-6 rounded-3xl border border-gray-100">
                         <div class="space-y-2">
-                            <label class="text-[10px] font-black uppercase text-zinc-500 tracking-widest">Nombre del Turno</label>
+                            <label class="text-[10px] font-black uppercase text-gray-400 tracking-widest">Nombre del Turno</label>
                             <input type="text" [(ngModel)]="nuevoHorario().nombre" placeholder="Ej: Mañana, Tarde, Viernes..."
-                                class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-indigo-600 outline-none transition-all text-xs font-bold">
+                                class="w-full bg-white border border-gray-100 rounded-xl px-4 py-3 text-gray-700 focus:border-[#00B8D4] outline-none transition-all text-xs font-black">
                         </div>
 
                         <div class="grid grid-cols-2 gap-4">
                             <div class="space-y-2">
-                                <label class="text-[10px] font-black uppercase text-zinc-500 tracking-widest">Hora Entrada</label>
+                                <label class="text-[10px] font-black uppercase text-gray-400 tracking-widest">Hora Entrada</label>
                                 <input type="time" [(ngModel)]="nuevoHorario().horaEntrada"
-                                    class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-indigo-600 outline-none transition-all">
+                                    class="w-full bg-white border border-gray-100 rounded-xl px-4 py-3 text-gray-700 focus:border-[#00B8D4] outline-none transition-all font-black">
                             </div>
                             <div class="space-y-2">
-                                <label class="text-[10px] font-black uppercase text-zinc-500 tracking-widest">Hora Salida</label>
+                                <label class="text-[10px] font-black uppercase text-gray-400 tracking-widest">Hora Salida</label>
                                 <input type="time" [(ngModel)]="nuevoHorario().horaSalida"
-                                    class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-indigo-600 outline-none transition-all">
+                                    class="w-full bg-white border border-gray-100 rounded-xl px-4 py-3 text-gray-700 focus:border-[#00B8D4] outline-none transition-all font-black">
                             </div>
                         </div>
 
                         <div class="space-y-2">
-                            <label class="text-[10px] font-black uppercase text-zinc-500 tracking-widest block mb-2">Días Laborables</label>
+                            <label class="text-[10px] font-black uppercase text-gray-400 tracking-widest block mb-2">Días Laborables</label>
                             <div class="flex flex-wrap gap-2">
                                 @for (dia of ['lunes','martes','miercoles','jueves','viernes','sabado','domingo']; track dia) {
                                     <button 
                                         (click)="toggleDia(dia)"
                                         [class]="nuevoHorario().diasLaborables[dia] 
-                                            ? 'bg-indigo-600 text-white border-indigo-500 shadow-lg shadow-indigo-600/20 scale-105' 
-                                            : 'bg-black text-zinc-600 border-zinc-800'"
-                                        class="px-3 py-1.5 rounded-lg border text-[10px] font-black uppercase transition-all hover:scale-105"
+                                            ? 'bg-[#00B8D4] text-white border-teal-400 shadow-lg shadow-teal-500/20 scale-105' 
+                                            : 'bg-white text-gray-400 border-gray-100'"
+                                        class="px-3 py-2 rounded-lg border text-[10px] font-black uppercase transition-all hover:scale-105"
                                     >
                                         {{ dia.substring(0,3) }}
                                     </button>
@@ -856,13 +839,13 @@
                         </div>
 
                         <div class="space-y-2">
-                            <label class="text-[10px] font-black uppercase text-zinc-500 tracking-widest">Fecha Inicio</label>
+                            <label class="text-[10px] font-black uppercase text-gray-400 tracking-widest">Fecha Inicio</label>
                             <input type="date" [(ngModel)]="nuevoHorario().fechaInicio"
-                                class="w-full bg-black border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-indigo-600 outline-none transition-all">
+                                class="w-full bg-white border border-gray-100 rounded-xl px-4 py-3 text-gray-700 focus:border-[#00B8D4] outline-none transition-all font-black">
                         </div>
 
                         <button (click)="guardarHorario()" 
-                            class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-black py-4 rounded-2xl text-xs uppercase tracking-widest transition-all shadow-lg shadow-indigo-600/20">
+                            class="w-full bg-[#00B8D4] hover:bg-[#00ACC1] text-white font-black py-4 rounded-2xl text-xs uppercase tracking-widest transition-all shadow-lg shadow-teal-500/20">
                             Asignar Jornada
                         </button>
                     </div>
@@ -870,22 +853,22 @@
 
                 <!-- LISTADO HORARIOS EXISTENTES -->
                 <div class="space-y-6">
-                    <h4 class="text-xs font-black uppercase tracking-[0.2em] text-zinc-500">Historial de Jornadas</h4>
+                    <h4 class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">Historial de Jornadas</h4>
                     
                     <div class="space-y-3 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
                         @for (h of horariosUsuario(); track h.idHorario) {
-                            <div class="p-5 bg-zinc-900/20 border border-zinc-800 rounded-2xl relative group/item">
-                                <div class="flex justify-between items-start mb-2">
-                                    <span class="text-[10px] font-black uppercase px-2 py-1 bg-emerald-500/10 text-emerald-500 rounded border border-emerald-500/20">
+                            <div class="p-6 bg-white border border-gray-100 rounded-2xl relative group/item shadow-sm">
+                                <div class="flex justify-between items-start mb-4">
+                                    <span class="text-[9px] font-black uppercase px-2 py-1 bg-emerald-50 text-emerald-500 rounded border border-emerald-100">
                                         {{ h.nombre }}
                                     </span>
                                     <button (click)="eliminarHorario(h.idHorario)" 
-                                        class="text-zinc-700 hover:text-red-500 transition-colors opacity-0 group-hover/item:opacity-100">
+                                        class="text-gray-200 hover:text-red-500 transition-colors opacity-0 group-hover/item:opacity-100">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
                                     </button>
                                 </div>
-                                <p class="text-lg font-black text-white font-mono">{{ h.horaEntrada.substring(0,5) }} - {{ h.horaSalida.substring(0,5) }}</p>
-                                <div class="flex gap-1 mt-3 mb-4">
+                                <p class="text-xl font-black text-gray-800 font-mono tracking-widest">{{ h.horaEntrada.substring(0,5) }} <span class="text-gray-200">→</span> {{ h.horaSalida.substring(0,5) }}</p>
+                                <div class="flex gap-1 mt-4 mb-4">
                                     @for (dia of [
                                         {key: 'lunes', label: 'L'},
                                         {key: 'martes', label: 'M'},
@@ -897,30 +880,30 @@
                                     ]; track dia.key) {
                                         <div 
                                             [class]="checkDiaLaboral(h.diasLaborables, dia.key) 
-                                                ? 'bg-indigo-600/20 text-indigo-400 border-indigo-500/30' 
-                                                : 'bg-zinc-900/50 text-zinc-700 border-zinc-800/50'"
-                                            class="h-6 w-6 rounded-md border flex items-center justify-center text-[9px] font-black transition-all"
+                                                ? 'bg-[#00B8D4]/10 text-[#00B8D4] border-[#00B8D4]/20 font-black' 
+                                                : 'bg-gray-50 text-gray-300 border-gray-100'"
+                                            class="h-7 w-7 rounded-lg border flex items-center justify-center text-[9px] transition-all"
                                             [title]="dia.key | titlecase"
                                         >
                                             {{ dia.label }}
                                         </div>
                                     }
                                 </div>
-                                <div class="flex items-center gap-2 mt-3 pt-2 border-t border-white/5">
-                                    <span class="text-[9px] text-zinc-500 uppercase font-black tracking-tighter">Vigencia:</span>
-                                    <span class="text-[9px] text-zinc-400 font-bold">Desde {{ h.fechaInicio | date:'dd/MM/yyyy' }}</span>
+                                <div class="flex items-center gap-2 mt-4 pt-3 border-t border-gray-50">
+                                    <span class="text-[9px] text-gray-300 uppercase font-black tracking-tighter">Vigencia:</span>
+                                    <span class="text-[9px] text-gray-500 font-black uppercase">Desde {{ h.fechaInicio | date:'dd/MM/yyyy' }}</span>
                                     @if(h.fechaFin) {
-                                        <span class="text-[9px] text-zinc-600">|</span>
-                                        <span class="text-[9px] text-zinc-400 font-bold">Hasta {{ h.fechaFin | date:'dd/MM/yyyy' }}</span>
+                                        <span class="text-[9px] text-gray-200">|</span>
+                                        <span class="text-[9px] text-gray-500 font-black uppercase">Hasta {{ h.fechaFin | date:'dd/MM/yyyy' }}</span>
                                     } @else {
-                                        <span class="text-[9px] text-zinc-600">|</span>
-                                        <span class="text-[9px] text-emerald-500 font-black uppercase tracking-tighter">Actual / Indefinido</span>
+                                        <span class="text-[9px] text-gray-200">|</span>
+                                        <span class="text-[9px] text-emerald-500 font-black uppercase tracking-tighter">Vigente</span>
                                     }
                                 </div>
                             </div>
                         } @empty {
-                            <div class="py-10 text-center border border-dashed border-zinc-800 rounded-3xl">
-                                <p class="text-[10px] font-black uppercase text-zinc-700">No hay jornadas asignadas</p>
+                            <div class="py-12 text-center border border-dashed border-gray-100 rounded-3xl bg-gray-50">
+                                <p class="text-[10px] font-black uppercase text-gray-300 tracking-widest">No hay jornadas asignadas</p>
                             </div>
                         }
                     </div>

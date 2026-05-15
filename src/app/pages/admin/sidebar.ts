@@ -8,73 +8,58 @@ import { TitleCasePipe } from '@angular/common';
   standalone: true,
   imports: [RouterLink, RouterLinkActive, TitleCasePipe],
   template: `
-    <nav class="fixed left-0 top-0 h-screen w-20 lg:w-64 bg-zinc-950 border-r border-zinc-900 flex flex-col z-50 transition-all duration-300 shadow-2xl">
-      <!-- Logo -->
-      <div class="h-20 flex items-center justify-center lg:justify-start lg:px-8 border-b border-zinc-900/50">
-        <div class="h-10 w-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-500/20">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-white"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
+    <nav class="fixed left-0 top-0 h-screen w-20 lg:w-64 bg-gradient-to-b from-[#00B8D4] to-[#3F51B5] flex flex-col z-50 transition-all duration-300 shadow-2xl overflow-hidden">
+      <!-- Profile Section (Top) -->
+      <div class="p-6 border-b border-white/10">
+        <div class="flex flex-col items-center gap-4 text-center">
+          <div class="h-16 w-16 lg:h-20 lg:w-20 rounded-full bg-white/20 backdrop-blur-md border border-white/30 p-1 shadow-xl">
+             <div class="h-full w-full rounded-full bg-white flex items-center justify-center text-[#00B8D4] text-2xl font-black shadow-inner">
+                {{ (authService.getUserData()?.nombre?.charAt(0) || 'U') | titlecase }}
+             </div>
+          </div>
+          <div class="hidden lg:block">
+            <p class="text-lg font-black text-white leading-tight">{{ authService.getUserData()?.nombre }}</p>
+            <p class="text-[10px] font-bold text-white/70 uppercase tracking-widest mt-1">FichApp</p>
+          </div>
         </div>
-        <span class="hidden lg:block ml-4 text-white font-black tracking-tight text-xl">fichar<span class="text-indigo-500">APP</span></span>
       </div>
 
       <!-- Navigation Links -->
-      <div class="flex-1 py-10 space-y-2 px-3 lg:px-4">
-        <a routerLink="/dashboard" routerLinkActive="bg-white/5 text-indigo-400 border-indigo-500/50 shadow-inner shadow-indigo-500/5" class="group cursor-pointer flex items-center justify-center lg:justify-start gap-4 p-3 rounded-xl hover:bg-white/5 text-zinc-500 hover:text-zinc-200 border border-transparent transition-all duration-200">
-          <div class="h-10 w-10 flex items-center justify-center rounded-lg bg-zinc-900/50 group-hover:scale-110 transition-transform">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-dashboard"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+      <div class="flex-1 py-6 space-y-1 px-3 lg:px-4">
+        <a routerLink="/dashboard" routerLinkActive="bg-white/20 text-white shadow-lg" class="group cursor-pointer flex items-center justify-center lg:justify-start gap-4 p-3 rounded-xl hover:bg-white/10 text-white/80 hover:text-white transition-all duration-200">
+          <div class="h-10 w-10 flex items-center justify-center rounded-lg transition-transform group-hover:scale-110">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-home"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
           </div>
-          <span class="hidden lg:block font-bold text-sm tracking-wide">Panel de Control</span>
+          <span class="hidden lg:block font-bold text-sm">Inicio</span>
         </a>
 
-        <a routerLink="/solicitudes" routerLinkActive="bg-white/5 text-indigo-400 border-indigo-500/50 shadow-inner shadow-indigo-500/5" class="group cursor-pointer flex items-center justify-center lg:justify-start gap-4 p-3 rounded-xl hover:bg-white/5 text-zinc-500 hover:text-zinc-200 border border-transparent transition-all duration-200">
-          <div class="h-10 w-10 flex items-center justify-center rounded-lg bg-zinc-900/50 group-hover:scale-110 transition-transform">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
+
+        <a routerLink="/solicitudes" routerLinkActive="bg-white/20 text-white shadow-lg" class="group cursor-pointer flex items-center justify-center lg:justify-start gap-4 p-3 rounded-xl hover:bg-white/10 text-white/80 hover:text-white transition-all duration-200">
+          <div class="h-10 w-10 flex items-center justify-center rounded-lg transition-transform group-hover:scale-110">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
           </div>
-          <span class="hidden lg:block font-bold text-sm tracking-wide">Solicitudes</span>
+          <span class="hidden lg:block font-bold text-sm">Solicitudes</span>
         </a>
 
         @if (authService.getRole()?.includes('admin')) {
-          <a routerLink="/admin" routerLinkActive="bg-white/5 text-indigo-400 border-indigo-500/50 shadow-inner shadow-indigo-500/5" class="group cursor-pointer flex items-center justify-center lg:justify-start gap-4 p-3 rounded-xl hover:bg-white/5 text-zinc-500 hover:text-zinc-200 border border-transparent transition-all duration-200">
-            <div class="h-10 w-10 flex items-center justify-center rounded-lg bg-zinc-900/50 group-hover:scale-110 transition-transform">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <a routerLink="/admin" routerLinkActive="bg-white/20 text-white shadow-lg" class="group cursor-pointer flex items-center justify-center lg:justify-start gap-4 p-3 rounded-xl hover:bg-white/10 text-white/80 hover:text-white transition-all duration-200">
+            <div class="h-10 w-10 flex items-center justify-center rounded-lg transition-transform group-hover:scale-110">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-check"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
             </div>
-            <span class="hidden lg:block font-bold text-sm tracking-wide">Administración</span>
+            <span class="hidden lg:block font-bold text-sm">Acceso Admin</span>
           </a>
-
-          <button class="group cursor-pointer flex w-full items-center justify-center lg:justify-start gap-4 p-3 rounded-xl hover:bg-white/5 text-zinc-500 hover:text-zinc-200 border border-transparent transition-all duration-200">
-            <div class="h-10 w-10 flex items-center justify-center rounded-lg bg-zinc-900/50 group-hover:scale-110 transition-transform">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bar-chart-3"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
-            </div>
-            <span class="hidden lg:block font-bold text-sm tracking-wide">Informes</span>
-          </button>
         }
-
-        <button class="group cursor-pointer flex w-full items-center justify-center lg:justify-start gap-4 p-3 rounded-xl hover:bg-white/5 text-zinc-500 hover:text-zinc-200 border border-transparent transition-all duration-200">
-          <div class="h-10 w-10 flex items-center justify-center rounded-lg bg-zinc-900/50 group-hover:scale-110 transition-transform">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings-2"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
-          </div>
-          <span class="hidden lg:block font-bold text-sm tracking-wide">Ajustes</span>
-        </button>
       </div>
 
-      <!-- Profile Section -->
-      <div class="p-4 border-t border-zinc-900/50 mb-4">
-        <div class="flex items-center gap-4 p-2 lg:bg-zinc-900/30 lg:border lg:border-zinc-800/50 lg:rounded-2xl group transition-all">
-          <div class="h-10 w-10 lg:h-12 lg:w-12 rounded-xl bg-indigo-600/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 font-black shrink-0 shadow-lg shadow-indigo-500/10 hover:scale-105 transition-transform">
-            {{ (authService.getUserData()?.nombre?.charAt(0) || 'U') | titlecase }}
+      <!-- Footer / Logout -->
+      <div class="p-4 bg-black/10 backdrop-blur-sm">
+        <button (click)="logout()" class="group cursor-pointer flex w-full items-center justify-center lg:justify-start gap-4 p-3 rounded-xl hover:bg-white/10 text-white/80 hover:text-white transition-all duration-200">
+          <div class="h-10 w-10 flex items-center justify-center transition-transform group-hover:rotate-12">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-power"><path d="M12 2v10"/><path d="M18.4 6.6a9 9 0 1 1-12.77.04"/></svg>
           </div>
-          <div class="hidden lg:block overflow-hidden">
-            <p class="text-xs font-black text-white truncate">{{ authService.getUserData()?.nombre }}</p>
-            <p class="text-[10px] font-bold text-zinc-500 truncate uppercase mt-0.5 tracking-widest">{{ authService.getRole() }}</p>
-          </div>
-        </div>
-        
-        <button (click)="logout()" class="mt-4 flex w-full items-center justify-center lg:justify-start gap-4 p-3 rounded-xl bg-zinc-900/50 hover:bg-red-500/10 text-zinc-500 hover:text-red-400 border border-zinc-800/50 transition-all duration-200 active:scale-95 cursor-pointer">
-          <div class="h-10 w-10 lg:h-8 lg:w-8 flex items-center justify-center shrink-0">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
-          </div>
-          <span class="hidden lg:block font-black text-[10px] uppercase tracking-[0.2em]">Cerrar Sesión</span>
+          <span class="hidden lg:block font-black text-[10px] uppercase tracking-[0.2em]">Desconectar</span>
         </button>
+        <p class="hidden lg:block text-center text-[8px] text-white/30 mt-2">v 3.0.9 | P. Privacidad</p>
       </div>
     </nav>
   `,

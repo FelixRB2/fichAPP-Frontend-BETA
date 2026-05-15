@@ -188,6 +188,10 @@ export class PanelControl implements OnInit {
     if (!idUsuario) return;
 
     try {
+      // 0. Cargamos datos actualizados del perfil del usuario (para tener el puesto real)
+      const userFull = await this.authService.getUserById(idUsuario);
+      this.datosUsuario.set(userFull);
+
       // 1. Cargamos datos básicos del dashboard (resumen, fichaje activo)
       const datos = await this.attendanceService.obtenerDatosDashboard(idUsuario);
       
@@ -305,6 +309,12 @@ export class PanelControl implements OnInit {
   checkDiaLaboral(diasStr: string, dia: string): boolean {
     if (!diasStr) return false;
     return diasStr.toLowerCase().split(',').some(d => d.trim() === dia.toLowerCase());
+  }
+
+  limpiarFiltroCalendario() {
+    this.rangoInicio.set(null);
+    this.rangoFin.set(null);
+    this.filtroTemporal.set('todos');
   }
 
   logout() {
